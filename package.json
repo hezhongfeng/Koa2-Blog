@@ -35,9 +35,6 @@
     "koa-views": "^5.0.1",
     "nodemon": "^1.9.1",
     "shell-task": "^1.0.0",
-    "mysql-pro":"^1.0.1",
-    "koa-session": "^2.0.0",
-    "koa-flash": "^1.0.0",
-    "merge-descriptors": "^1.0.1"
+    "mysql-pro":"^1.0.1"
   }
 }

@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-const login = require('../handlers/login.js');
+const login = require('../controller/login.js');
 
 const router = new Router()
 
@@ -14,6 +14,7 @@ router
   .get('/hezf', async(ctx, next) => {
     // 使用模板，建立主页
     await ctx.render('hezf', {title: 'Hezf'})
+    await ctx.send(ctx,'demo.html', {root: 'static/statics'});
   })
   .get('/index', async(ctx, next) => {
     // 发送静态文件

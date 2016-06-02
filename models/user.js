@@ -14,14 +14,11 @@ const User = module.exports = {};
  * @param   {number} id - User id or undefined if not found.
  * @returns {Object} User details.
  */
-User.get = (name) => {
-  return client.query("select * from test where name = ?;", [name]).then(function (result) {
-    console.log(result);
-    console.log(result[0].password);
-    //return result;
-  }, function (error) {
-    console.log(error);
-  });
+User.get = async(name) => {
+  var result = await client.query("select * from test where name = ?;", [name])
+  //console.log(result);
+  //console.log(result[0].password);
+  return result[0].password;
 }
 
 // var sleep = function (time) {
