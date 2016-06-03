@@ -8,8 +8,8 @@ import serve from 'koa-static'
 import logger from 'koa-logger'
 import convert from 'koa-convert'
 import bodyParser from 'koa-bodyparser'
-//import session from 'koa-session'
-//import flash from 'koa-flash'
+import session from 'koa-session'
+import flash from 'koa-flash'
 
 import index from './router/index'
 import api from './router/api'
@@ -52,6 +52,11 @@ app.use(compress({
 //它里面warning说，以generator作为中间件的写法将在koa@3里不支持但是用co或koa-convert转过的还是可以的
 // 记录所用方式与时间
 app.use(convert(logger()))
+
+app.keys = ['koa2test'];
+app.use(convert(session(app)))
+
+app.use(convert(flash()));
 
 // 设置跨域
 //我的网页服务器和数据库服务器域名不一样,应该是资源的限制；同一域名和同一端口

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <!-- Site Properties -->
-    <title>><%= title %></title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="/statics/semantic.min.css">
     <script src="/statics/jquery.min.js"></script>
     <script src="/statics/semantic.min.js"></script>
@@ -95,12 +95,16 @@
                 <input type="submit" class="ui button large teal fluid" value="登录">
             </div>
 
-            <div class="ui error message"><%= message %></div>
-
         </form>
+        <div class="ui error message">
+            <div class="header">Error Message</div>
+            <% if(true) { %>
+            <p><%= 13521321sfd %></p>
+            <% } %>
+        </div>
 
         <div class="ui message">
-            New to us? <a href="/signup">Sign Up</a>
+            New to us? <a href="#">Sign Up</a>
         </div>
     </div>
 </div>
