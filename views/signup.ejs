@@ -1,0 +1,111 @@
+<% include header %>
+
+<style type="text/css">
+    body {
+        background-color: #DADADA;
+    }
+
+    body > .grid {
+        height: 100%;
+    }
+
+    .image {
+        margin-top: -100px;
+    }
+
+    .column {
+        max-width: 450px;
+    }
+</style>
+<script>
+    $(document)
+            .ready(function () {
+                $('.ui.form')
+                        .form({
+                            fields: {
+                                email: {
+                                    identifier: 'email',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Please enter your e-mail'
+                                        },
+                                        {
+                                            type: 'email',
+                                            prompt: 'Please enter a valid e-mail'
+                                        }
+                                    ]
+                                },
+                                password: {
+                                    identifier: 'password',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Please enter your password'
+                                        },
+                                        {
+                                            type: 'length[5]',
+                                            prompt: 'Your password must be at least 6 characters'
+                                        }
+                                    ]
+                                }
+                            }
+                        })
+                ;
+            })
+    ;
+</script>
+</head>
+<body>
+
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui teal image header">
+            <img src="/statics/images/logo.png" class="image">
+            <div class="content">
+                Log-in to your account
+            </div>
+        </h2>
+        <form class="ui large form" method="post" action="/signin">
+            <div class="ui stacked segment">
+                <div class="row">
+                    <div class="column">
+                        <h1 class="ui header">Buttons</h1>
+                        <a class="ui button" tabindex="0">
+                            Default
+                        </a>
+                        <a class="ui primary button" tabindex="0">
+                            Primary
+                        </a>
+                        <a class="ui basic button" tabindex="0">
+                            Basic
+                        </a>
+                        <a class="ui positive button" tabindex="0">
+                            Success
+                        </a>
+                        <a class="ui negative button" tabindex="0">
+                            Error
+                        </a>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="email" placeholder="E-mail address">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <input type="submit" class="ui button large teal fluid" value="登录">
+            </div>
+            <div class="ui error message">
+            </div>
+        </form>
+    </div>
+</div>
+
+<% include footer %>

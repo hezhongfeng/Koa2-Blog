@@ -1,20 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>Blog</title>
-    <link rel="stylesheet" href="/ejs/css/style.css">
+    <meta charset="utf-8">
+    <title>Hezf-blog</title>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/statics/semantic.min.css">
+    <script src="/statics/jquery.min.js"></script>
+    <script src="/statics/semantic.min.js"></script>
+    <script>
+        $(document)
+                .ready(function() {
+                    $('.ui.menu .ui.dropdown').dropdown({
+                        on: 'hover'
+                    });
+                    $('.ui.menu a.item')
+                            .on('click', function() {
+                                $(this)
+                                        .addClass('active')
+                                        .siblings()
+                                        .removeClass('active')
+                                ;
+                            })
+                    ;
+                })
+        ;
+    </script>
 </head>
 <body>
+<!--<div class="ui container">-->
 
-<header>
-    <h1><%= title %></h1>
-</header>
-
-<nav>
-    <span><a title="主页" href="/">home</a></span>
-    <span><a title="登录" href="/login">login</a></span>
-    <span><a title="注册" href="/reg">register</a></span>
-</nav>
-
-<article>
+<div class="ui inverted menu">
+    <div class="header item">Brand</div>
+    <a class="active item">Link</a>
+    <a class="item">Link</a>
+    <div class="ui dropdown item">Dropdown
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <div class="item">Action</div>
+            <div class="item">Another Action</div>
+            <div class="item">Something else here</div>
+            <div class="divider"></div>
+            <div class="item">Separated Link</div>
+            <div class="divider"></div>
+            <div class="item">One more separated link</div>
+        </div>
+    </div>
+    <div class="right menu">
+        <!--<div class="item">-->
+            <!--<div class="ui transparent inverted icon input">-->
+                <!--<i class="search icon"></i>-->
+                <!--<input type="text" placeholder="Search">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<a class="item">Link</a>-->
+        <a href="/signup" class="item">注册</a>
+        <a href="/signin" class="item">登录</a>
+    </div>
+</div>

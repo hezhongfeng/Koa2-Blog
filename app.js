@@ -9,7 +9,9 @@ import logger from 'koa-logger'
 import convert from 'koa-convert'
 import bodyParser from 'koa-bodyparser'
 import session from 'koa-session'
-import flash from 'koa-flash'
+//import session2 from 'koa-session2'
+import flash from 'koa-flash-simple'
+import onerror  from 'koa-onerror'
 
 import index from './router/index'
 import api from './router/api'
@@ -20,20 +22,23 @@ import {KoaErr} from './helper'
 const app = new Koa()
 
 // 全局错误处理
-app.use(async(ctx, next) => {
-  try {
-    await next()
-  } catch (err) {
-    ctx.body = err
-    ctx.status = err.status || 500
-  }
-})
+// app.use(async(ctx, next) => {
+//   try {
+//     await next()
+//   } catch (err) {
+//     ctx.body = err
+//     ctx.status = err.status || 500
+//
+//   }
+// })
 
 // 使用自定义错误
-app.use(async(ctx, next) => {
-  ctx.Err = KoaErr
-  await next()
-})
+// app.use(async(ctx, next) => {
+//   ctx.Err = KoaErr
+//   await next()
+// })
+
+onerror(app);
 
 // 设置Header，这个header会输出给浏览器客户端，表明这个框架是什么生成的，可以自行修改
 //例如使用了ThinkPHP，会输出：X-Powered-By: ThinkPHP 2.0，我想如果是thinkjs的话就是差不多的了
@@ -53,10 +58,8 @@ app.use(compress({
 // 记录所用方式与时间
 app.use(convert(logger()))
 
-app.keys = ['koa2test'];
-app.use(convert(session(app)))
-
-app.use(convert(flash()));
+app.keys = ['some secret hezf'];//设置 Signed Cookie 的密钥
+app.use(convert(session(app)));
 
 // 设置跨域
 //我的网页服务器和数据库服务器域名不一样,应该是资源的限制；同一域名和同一端口
@@ -66,7 +69,7 @@ app.use(convert(cors()))
 app.use(convert(json()))
 
 // body解析
-app.use(convert(bodyParser()))
+app.use(bodyParser())
 
 //app.use(convert(session()))//会话支持，这个没接触过,这里不注释的话会报错，以后要加上
 //app.use(convert(flash()))
@@ -79,10 +82,18 @@ app.use(views(__dirname + '/views', {//这里应该是包含了ejs和别的一�
 // 静态文件夹
 app.use(convert(serve(__dirname + '/static/')))
 
-// 发送静态文件，如HTML等
+//发送静态文件，如HTML等
 app.use(async(ctx, next) => {
   ctx.send = send
   await next()
+})
+
+app.use(flash());
+
+app.use(async(ctx, next) => {
+  //ctx.response.flash=ctx.flash;
+  //app.locals.session = ctx.session;
+  await next();
 })
 
 //  路由，最后到达路由，再由路由分发到相应的处理handlers

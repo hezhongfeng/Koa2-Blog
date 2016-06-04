@@ -15,10 +15,13 @@ const User = module.exports = {};
  * @returns {Object} User details.
  */
 User.get = async(name) => {
-  var result = await client.query("select * from test where name = ?;", [name])
-  //console.log(result);
-  //console.log(result[0].password);
-  return result[0].password;
+  try{
+    var result = await client.query("select * from test where name = ?;", [name])
+    console.log(result);
+    return result[0].password;
+  } catch (err){
+    console.log(err);
+  }
 }
 
 // var sleep = function (time) {
