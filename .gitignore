@@ -2,6 +2,7 @@
 Thumbs.db
 ehthumbs.db
 /node_modules/
+/.idea/
 
 # Folder config file
 Desktop.ini
