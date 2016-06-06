@@ -1,60 +1,60 @@
 <% include header %>
 
-    <style type="text/css">
-        body {
-            background-color: #DADADA;
-        }
+<style type="text/css">
+    body {
+        background-color: #DADADA;
+    }
 
-        body > .grid {
-            height: 100%;
-        }
+    body > .grid {
+        height: 100%;
+    }
 
-        .image {
-            margin-top: -100px;
-        }
+    .image {
+        margin-top: -100px;
+    }
 
-        .column {
-            max-width: 450px;
-        }
-    </style>
-    <script>
-        $(document)
-                .ready(function () {
-                    $('.ui.form')
-                            .form({
-                                fields: {
-                                    email: {
-                                        identifier: 'email',
-                                        rules: [
-                                            {
-                                                type: 'empty',
-                                                prompt: 'Please enter your e-mail'
-                                            },
-                                            {
-                                                type: 'email',
-                                                prompt: 'Please enter a valid e-mail'
-                                            }
-                                        ]
-                                    },
-                                    password: {
-                                        identifier: 'password',
-                                        rules: [
-                                            {
-                                                type: 'empty',
-                                                prompt: 'Please enter your password'
-                                            },
-                                            {
-                                                type: 'length[5]',
-                                                prompt: 'Your password must be at least 6 characters'
-                                            }
-                                        ]
-                                    }
+    .column {
+        max-width: 450px;
+    }
+</style>
+<script>
+    $(document)
+            .ready(function () {
+                $('.ui.form')
+                        .form({
+                            fields: {
+                                email: {
+                                    identifier: 'email',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Please enter your e-mail'
+                                        },
+                                        {
+                                            type: 'email',
+                                            prompt: 'Please enter a valid e-mail'
+                                        }
+                                    ]
+                                },
+                                password: {
+                                    identifier: 'password',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Please enter your password'
+                                        },
+                                        {
+                                            type: 'length[5]',
+                                            prompt: 'Your password must be at least 6 characters'
+                                        }
+                                    ]
                                 }
-                            })
-                    ;
-                })
-        ;
-    </script>
+                            }
+                        })
+                ;
+            })
+    ;
+</script>
 </head>
 <body>
 
@@ -63,7 +63,7 @@
         <h2 class="ui teal image header">
             <img src="/statics/images/logo.png" class="image">
             <div class="content">
-                Log-in to your account
+                登录您的账户
             </div>
         </h2>
         <form class="ui large form" method="post" action="/signin">
@@ -85,8 +85,14 @@
             <div class="ui error message">
             </div>
         </form>
+
+        <% if(flash && flash.error) { %>
+        <div class="ui error message">
+            <p><%= flash.error %></p>
+        </div>
+        <% } %>
         <div class="ui message">
-            New to us? <a href='/signup'>Sign Up</a>
+            还没注册? <a href='/signup'>点我注册</a>
         </div>
     </div>
 </div>

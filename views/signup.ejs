@@ -23,16 +23,21 @@
                 $('.ui.form')
                         .form({
                             fields: {
-                                email: {
-                                    identifier: 'email',
+                                name: {
+                                    identifier: 'name',
                                     rules: [
                                         {
                                             type: 'empty',
-                                            prompt: 'Please enter your e-mail'
-                                        },
+                                            prompt: '请输入用户名'
+                                        }
+                                    ]
+                                },
+                                gender: {
+                                    identifier: 'gender',
+                                    rules: [
                                         {
-                                            type: 'email',
-                                            prompt: 'Please enter a valid e-mail'
+                                            type: 'empty',
+                                            prompt: '请选择性别'
                                         }
                                     ]
                                 },
@@ -46,6 +51,36 @@
                                         {
                                             type: 'length[5]',
                                             prompt: 'Your password must be at least 6 characters'
+                                        }
+                                    ]
+                                },
+                                re_password: {
+                                    identifier: 're_password',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Please enter your password'
+                                        },
+                                        {
+                                            type: 'length[5]',
+                                            prompt: 'Your password must be at least 6 characters'
+                                        },
+                                        {
+                                            type: 'match[password]',
+                                            prompt: '两次密码不一致'
+                                        }
+                                    ]
+                                },
+                                email: {
+                                    identifier: 'email',
+                                    rules: [
+                                        {
+                                            type: 'empty',
+                                            prompt: 'Please enter your e-mail'
+                                        },
+                                        {
+                                            type: 'email',
+                                            prompt: 'Please enter a valid e-mail'
                                         }
                                     ]
                                 }
@@ -63,49 +98,59 @@
         <h2 class="ui teal image header">
             <img src="/statics/images/logo.png" class="image">
             <div class="content">
-                Log-in to your account
+                注册用户
             </div>
         </h2>
-        <form class="ui large form" method="post" action="/signin">
-            <div class="ui stacked segment">
-                <div class="row">
-                    <div class="column">
-                        <h1 class="ui header">Buttons</h1>
-                        <a class="ui button" tabindex="0">
-                            Default
-                        </a>
-                        <a class="ui primary button" tabindex="0">
-                            Primary
-                        </a>
-                        <a class="ui basic button" tabindex="0">
-                            Basic
-                        </a>
-                        <a class="ui positive button" tabindex="0">
-                            Success
-                        </a>
-                        <a class="ui negative button" tabindex="0">
-                            Error
-                        </a>
+        <form class="ui large form" method="post" action="/signup">
+            <div class="ui form left aligned segment">
+                <div class="required two fields">
+                    <div class="field">
+                        <label>用户名</label>
+                        <input placeholder="用户名" type="text" name="name">
                     </div>
+                    <div class="field">
+                        <label>性别</label>
+                        <select class="ui dropdown" name="gender">
+                            <option value="">请选择性别</option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="two required fields">
+                    <div class="field">
+                        <label>密码</label>
+                        <input placeholder="Password" type="password" name="password">
+                    </div>
+                    <div class="field">
+                        <label>重复密码</label>
+                        <input placeholder="Confirm Password" type="password" name="re_password">
+                    </div>
+                </div>
+                <div class="required field">
+                    <label>邮箱</label>
+                    <input placeholder="E-mail address" type="text" name="email">
                 </div>
                 <div class="field">
-                    <div class="ui left icon input">
-                        <i class="user icon"></i>
-                        <input type="text" name="email" placeholder="E-mail address">
-                    </div>
+                    <label>签名</label>
+                    <input name="signature" type="text">
                 </div>
-                <div class="field">
-                    <div class="ui left icon input">
-                        <i class="lock icon"></i>
-                        <input type="password" name="password" placeholder="Password">
-                    </div>
-                </div>
-                <input type="submit" class="ui button large teal fluid" value="登录">
+
+                <input type="submit" class="ui button large teal fluid" value="注册">
             </div>
             <div class="ui error message">
             </div>
         </form>
+        <% if(flash && flash.message) { %>
+        <div class="ui error message">
+            <p><%= flash.message %></p>
+        </div>
+        <% } %>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('.ui.dropdown').dropdown();
+</script>
 
 <% include footer %>

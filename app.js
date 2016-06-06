@@ -9,7 +9,6 @@ import logger from 'koa-logger'
 import convert from 'koa-convert'
 import bodyParser from 'koa-bodyparser'
 import session from 'koa-session'
-//import session2 from 'koa-session2'
 import flash from 'koa-flash-simple'
 import onerror  from 'koa-onerror'
 
@@ -17,26 +16,7 @@ import index from './router/index'
 import api from './router/api'
 import test from './router/test'
 
-import {KoaErr} from './helper'
-
 const app = new Koa()
-
-// 全局错误处理
-// app.use(async(ctx, next) => {
-//   try {
-//     await next()
-//   } catch (err) {
-//     ctx.body = err
-//     ctx.status = err.status || 500
-//
-//   }
-// })
-
-// 使用自定义错误
-// app.use(async(ctx, next) => {
-//   ctx.Err = KoaErr
-//   await next()
-// })
 
 onerror(app);
 
@@ -96,10 +76,10 @@ app.use(async(ctx, next) => {
   await next();
 })
 
-//  路由，最后到达路由，再由路由分发到相应的处理handlers
+//路由，最后处理到达路由，再由路由分发到相应的处理controller,这里是简单的MVC模型
 app.use(index.routes())
 app.use(api.routes())
 app.use(test.routes())
 
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 3000)//这里监听3000端口，默认貌似也是3000
 console.log(`Server up and running! On port ${process.env.PORT || 3000}!`);
