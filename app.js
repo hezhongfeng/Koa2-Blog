@@ -15,6 +15,7 @@ import onerror  from 'koa-onerror'
 import index from './router/index'
 import api from './router/api'
 import test from './router/test'
+import user from './router/user'
 
 const app = new Koa()
 
@@ -80,6 +81,7 @@ app.use(async(ctx, next) => {
 app.use(index.routes())
 app.use(api.routes())
 app.use(test.routes())
+app.use(user.routes())
 
 app.listen(process.env.PORT || 3000)//这里监听3000端口，默认貌似也是3000
 console.log(`Server up and running! On port ${process.env.PORT || 3000}!`);

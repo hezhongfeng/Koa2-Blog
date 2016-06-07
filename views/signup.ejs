@@ -83,6 +83,15 @@
                                             prompt: 'Please enter a valid e-mail'
                                         }
                                     ]
+                                },
+                                signature: {
+                                    identifier: 'signature',
+                                    rules: [
+                                        {
+                                            type: 'maxLength[50]',
+                                            prompt: '签名过长'
+                                        }
+                                    ]
                                 }
                             }
                         })
@@ -98,7 +107,7 @@
         <h2 class="ui teal image header">
             <img src="/statics/images/logo.png" class="image">
             <div class="content">
-                注册用户
+                注册新用户
             </div>
         </h2>
         <form class="ui large form" method="post" action="/signup">
@@ -133,7 +142,7 @@
                 </div>
                 <div class="field">
                     <label>签名</label>
-                    <input name="signature" type="text">
+                    <input name="signature" placeholder="50字以内" type="text">
                 </div>
 
                 <input type="submit" class="ui button large teal fluid" value="注册">
