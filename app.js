@@ -13,8 +13,6 @@ import flash from 'koa-flash-simple'
 import onerror  from 'koa-onerror'
 
 import index from './router/index'
-import api from './router/api'
-import test from './router/test'
 import user from './router/user'
 
 const app = new Koa()
@@ -25,7 +23,7 @@ onerror(app);
 //例如使用了ThinkPHP，会输出：X-Powered-By: ThinkPHP 2.0，我想如果是thinkjs的话就是差不多的了
 app.use(async(ctx, next) => {
   await next()
-  ctx.set('X-Powered-By', 'Koa2-Easy')
+  ctx.set('X-Powered-By', 'Koa2-Test')
 })
 
 // 设置gzip
@@ -61,7 +59,7 @@ app.use(views(__dirname + '/views', {//这里应该是包含了ejs和别的一�
 }))
 
 // 静态文件夹
-app.use(convert(serve(__dirname + '/static/')))
+app.use(convert(serve(__dirname + '/public/')))
 
 //发送静态文件，如HTML等
 app.use(async(ctx, next) => {
@@ -71,16 +69,14 @@ app.use(async(ctx, next) => {
 
 app.use(flash());
 
-app.use(async(ctx, next) => {
-  //ctx.response.flash=ctx.flash;
-  //app.locals.session = ctx.session;
-  await next();
-})
+// app.use(async(ctx, next) => {
+//   //ctx.response.flash=ctx.flash;
+//   //app.locals.session = ctx.session;
+//   await next();
+// })
 
 //路由，最后处理到达路由，再由路由分发到相应的处理controller,这里是简单的MVC模型
 app.use(index.routes())
-app.use(api.routes())
-app.use(test.routes())
 app.use(user.routes())
 
 app.listen(process.env.PORT || 3000)//这里监听3000端口，默认貌似也是3000

@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title><%= title %></title>
-    <link rel="stylesheet" href="/statics/semantic.min.css">
-    <script src="/statics/jquery.min.js"></script>
-    <script src="/statics/semantic.min.js"></script>
+    <link rel="stylesheet" href="/semantic.min.css">
+    <script src="/jquery.min.js"></script>
+    <script src="/semantic.min.js"></script>
     <script>
         $(document)
                 .ready(function () {
@@ -32,25 +32,12 @@
         .ui.menu .item img.logo {
             margin-right: 1.5em;
         }
-
-        .main.container {
-            margin-top: 7em;
-        }
-
-        .wireframe {
-            margin-top: 2em;
-        }
-
-        .ui.footer.segment {
-            margin: 5em 0em 0em;
-            padding: 5em 0em;
-        }
     </style>
 </head>
 <div class="ui fixed inverted main menu" id="main_menu">
     <div class="ui container">
         <a href="#" class="header item">
-            <img class="logo" src="/statics/images/logo.png">
+            <img class="logo" src="/images/logo.png">
             Project Name
         </a>
         <a href="#" class="item">Home</a>
@@ -73,16 +60,17 @@
             </div>
         </div>
         <div class="right menu">
-            <a href="/logout" class="item">首页</a>
+            <a href="/" class="item">首页</a>
             <% if (session && session.user) { %>
-            <a href="/logout" class="item">未读消息</a>
+            <a href="/messages" class="item">未读消息</a>
             <% } %>
-            <a href="/logout" class="item">关于</a>
+            <a href="/about" class="item">关于</a>
             <% if (session && session.user) { %>
+            <p>当前账户是<%= session.user.email %></p>
             <a href="/logout" class="item">登出</a>
             <% } else { %>
             <a href="/signup" class="item">注册</a>
-            <a href="/signin" class="item">登录</a>
+            <a href="/login" class="item">登录</a>
             <% } %>
         </div>
     </div>

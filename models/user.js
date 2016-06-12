@@ -14,9 +14,9 @@ const User = module.exports = {};
  * @param   {number} id - User id or undefined if not found.
  * @returns {Object} User details.
  */
-User.get = async(name) => {
+User.get = async(email) => {
   try {
-    var result = await client.query("select * from user where name = ?;", [name])
+    var result = await client.query("select * from user where email = ?;", [email])
     console.log(result);
     return result[0];
   } catch (err) {
@@ -27,24 +27,20 @@ User.get = async(name) => {
 
 User.createUser = async(userInfo) => {
   try {
-    console.log('数据库操作');
     let result = await client.query("select * from user where email = ?;", [userInfo.email]);
-    //console.log(result.length===0);
     if (result.length === 0) {
+      //insert into后跳转到登录界面，或者直接是用户界面
       return await client.query("insert into user (name,password,email,gender,signature) values (?,?,?,?,?);",
         [userInfo.name,
           userInfo.password,
           userInfo.email,
           userInfo.gender,
           userInfo.signature]);
-      //insert into后跳转到登录界面，或者直接是用户界面
     }
     return 'repeat';
   } catch (errors) {
     console.log(errors);
     return 'db_error';
-    // if (err.Error === 'ER_DUP_ENTRY')
-    //   console.log('邮箱重复');
   }
 }
 

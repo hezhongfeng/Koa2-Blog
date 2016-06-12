@@ -1,7 +1,8 @@
 <% include header %>
+
 <style type="text/css">
-    body {
-        background-color: #DADADA;
+    .main.container {
+        margin-top: 7em;
     }
 </style>
 
@@ -9,61 +10,42 @@
     $(document).ready(function () {
         $('.ui.sticky').sticky({
             context: '#main_container',
-            offset       : 60
+            offset: 60
         });
     })
 </script>
 
 <div class="ui main container" id="main_container">
-    <div class="ui segment">
-        <div class="right ui rail">
-            <div class="ui bound top sticky">
-                <div class="ui card">
-                    <div class="image">
-                        <img src="/statics/images/women.jpg">
-                    </div>
-                    <div class="content">
-                        <a class="header">史蒂夫</a>
-                        <div class="meta">
-                            <span class="date">2014加入</span>
-                        </div>
-                        <div class="description">
-                            史蒂夫费利西亚诺是图书馆学家，居住在纽约市。她喜欢把她的时间花在阅读和写作，跑步。
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <a>
-                            <i class="user icon"></i>
-                            22个朋友
-                        </a>
-                    </div>
+    <div class="ui two column centered grid">
+        <div class="left floated twelve wide column">
+            <div class="ui segment">
+                <% include partials/list %>
+                <p>
+                    一段文字
+                </p>
+                <div class="ui image">
+                    <img src="/images/image-text.png">
+                </div>
+                <p>
+                    一段文字
+                </p>
+                <div class="ui image">
+                    <img src="/images/image-text.png">
+                </div>
+                <p>
+                    一段文字
+                </p>
+                <div class="ui image">
+                    <img src="/images/image-text.png">
                 </div>
             </div>
         </div>
-        <!--<div class="right ui rail" style="min-height: 263px;">-->
-            <!--<div class="ui sticky">-->
-                <!--<h3 class="ui header">Stuck Content</h3>-->
-                <!--<img>-->
-            <!--</div>-->
-        <!--</div>-->
 
-        <p>
-            一段文字
-        </p>
-        <div class="ui image">
-            <img src="/statics/images/image-text.png">
-        </div>
-        <p>
-            一段文字
-        </p>
-        <div class="ui image">
-            <img src="/statics/images/image-text.png">
-        </div>
-        <p>
-            一段文字
-        </p>
-        <div class="ui image">
-            <img src="/statics/images/image-text.png">
+        <div class="right floated left aligned four wide column">
+            <div class="ui bound top sticky">
+                <% include partials/userCard %>
+                <% include partials/linkCard %>
+            </div>
         </div>
     </div>
 </div>
