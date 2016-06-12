@@ -1,12 +1,12 @@
 import Router from 'koa-router'
+const topic = require('../controller/topic');
+
 
 const router = new Router({
   prefix: '/user'
 })
 
 router
-  .get('/', async(ctx) => {
-    await ctx.render('user', {title: '个人主页', flash: ctx.flash.get(),session:ctx.session});
-  })
+  .get('/:name',topic.getTopic);
 
 export default router

@@ -1,24 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <title><%= title %></title>
-  <link rel="stylesheet" href="/ejs/css/index.css">
-</head>
-<body>
-  <h1>Hello <%= title %></h1>
-  <div class="row">
-    <a href="https://github.com/Lxxyx/koa2-easy" class="button">
-      Look in Github
-    </a>
+<% include header %>
+
+<style type="text/css">
+  .main.container {
+    margin-top: 7em;
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    $('.ui.sticky').sticky({
+      context: '#main_container',
+      offset: 60
+    });
+  })
+</script>
+
+<div class="ui main container" id="main_container">
+  <div class="ui two column centered grid">
+    <div class="left floated twelve wide column">
+      <div class="ui segment">
+        <% include partials/list %>
+        <p>
+          一段文字
+        </p>
+        <div class="ui image">
+          <img src="/images/image-text.png">
+        </div>
+        <p>
+          一段文字
+        </p>
+        <div class="ui image">
+          <img src="/images/image-text.png">
+        </div>
+        <p>
+          一段文字
+        </p>
+        <div class="ui image">
+          <img src="/images/image-text.png">
+        </div>
+      </div>
+    </div>
+
+    <div class="right floated left aligned four wide column">
+      <div class="ui bound top sticky">
+        <% include partials/userCard %>
+        <% include partials/linkCard %>
+      </div>
+    </div>
   </div>
-  <div class="row">
-    <ul>
-      <li><a href="/index">发送静态文件</a></li>
-      <li><a href="/test/json">发送JSON数据</a></li>
-      <li><a href="https://github.com/hezhongfeng/Koa2Test">外网链接</a></li>
-    </ul>
-  </div>
-</body>
-</html>
+</div>
+
+<% include footer %>

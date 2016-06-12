@@ -33,9 +33,10 @@ handler.login = async function (ctx) {
     return await ctx.redirect('back', {flash: ctx.flash.get()});
   }
   ctx.session.user = {
+    user_id: userInfo.id,
     name: userInfo.name,
     email: userInfo.email
   };
   //登录成功
-  return await ctx.redirect('/user/', {title: '用户页面'});
+  return await ctx.redirect('/', {title: '主页'});
 };

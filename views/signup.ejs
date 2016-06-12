@@ -1,100 +1,111 @@
-<% include header %>
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/semantic.min.css">
+    <script src="/jquery.min.js"></script>
+    <script src="/semantic.min.js"></script>
 
-<style type="text/css">
-    body > .grid {
-        height: 100%;
-    }
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
 
-    .image {
-        margin-top: -100px;
-    }
+        body > .grid {
+            height: 100%;
+        }
 
-    .column {
-        max-width: 450px;
-    }
-</style>
-<script>
-    $(document)
-            .ready(function () {
-                $('.ui.form')
-                        .form({
-                            fields: {
-                                name: {
-                                    identifier: 'name',
-                                    rules: [
-                                        {
-                                            type: 'empty',
-                                            prompt: '请输入用户名'
-                                        }
-                                    ]
-                                },
-                                gender: {
-                                    identifier: 'gender',
-                                    rules: [
-                                        {
-                                            type: 'empty',
-                                            prompt: '请选择性别'
-                                        }
-                                    ]
-                                },
-                                password: {
-                                    identifier: 'password',
-                                    rules: [
-                                        {
-                                            type: 'empty',
-                                            prompt: 'Please enter your password'
-                                        },
-                                        {
-                                            type: 'length[5]',
-                                            prompt: 'Your password must be at least 6 characters'
-                                        }
-                                    ]
-                                },
-                                re_password: {
-                                    identifier: 're_password',
-                                    rules: [
-                                        {
-                                            type: 'empty',
-                                            prompt: 'Please enter your password'
-                                        },
-                                        {
-                                            type: 'length[5]',
-                                            prompt: 'Your password must be at least 6 characters'
-                                        },
-                                        {
-                                            type: 'match[password]',
-                                            prompt: '两次密码不一致'
-                                        }
-                                    ]
-                                },
-                                email: {
-                                    identifier: 'email',
-                                    rules: [
-                                        {
-                                            type: 'empty',
-                                            prompt: 'Please enter your e-mail'
-                                        },
-                                        {
-                                            type: 'email',
-                                            prompt: 'Please enter a valid e-mail'
-                                        }
-                                    ]
-                                },
-                                signature: {
-                                    identifier: 'signature',
-                                    rules: [
-                                        {
-                                            type: 'maxLength[50]',
-                                            prompt: '签名过长'
-                                        }
-                                    ]
+        .image {
+            margin-top: -100px;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+    </style>
+    <script>
+        $(document)
+                .ready(function () {
+                    $('.ui.form')
+                            .form({
+                                fields: {
+                                    name: {
+                                        identifier: 'name',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: '请输入用户名'
+                                            }
+                                        ]
+                                    },
+                                    gender: {
+                                        identifier: 'gender',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: '请选择性别'
+                                            }
+                                        ]
+                                    },
+                                    password: {
+                                        identifier: 'password',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: 'Please enter your password'
+                                            },
+                                            {
+                                                type: 'length[5]',
+                                                prompt: 'Your password must be at least 6 characters'
+                                            }
+                                        ]
+                                    },
+                                    re_password: {
+                                        identifier: 're_password',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: 'Please enter your password'
+                                            },
+                                            {
+                                                type: 'length[5]',
+                                                prompt: 'Your password must be at least 6 characters'
+                                            },
+                                            {
+                                                type: 'match[password]',
+                                                prompt: '两次密码不一致'
+                                            }
+                                        ]
+                                    },
+                                    email: {
+                                        identifier: 'email',
+                                        rules: [
+                                            {
+                                                type: 'empty',
+                                                prompt: 'Please enter your e-mail'
+                                            },
+                                            {
+                                                type: 'email',
+                                                prompt: 'Please enter a valid e-mail'
+                                            }
+                                        ]
+                                    },
+                                    signature: {
+                                        identifier: 'signature',
+                                        rules: [
+                                            {
+                                                type: 'maxLength[50]',
+                                                prompt: '签名过长'
+                                            }
+                                        ]
+                                    }
                                 }
-                            }
-                        })
-                ;
-            })
-    ;
-</script>
+                            })
+                    ;
+                })
+        ;
+    </script>
 </head>
 <body>
 
@@ -158,4 +169,5 @@
     $('.ui.dropdown').dropdown();
 </script>
 
-<% include footer %>
+</body>
+</html>
