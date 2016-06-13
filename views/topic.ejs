@@ -1,0 +1,17 @@
+<% include header %>
+
+<div class="ui segment">
+    <div class="item">
+        <h1 class="ui header"><%= topic.title %></h1>
+        <div class="item">•
+            发布于 <%= topic.fromNow %>•
+            作者 <%= topic.user_id %>•
+        </div>
+        <div class="ui divider"></div>
+        <div class="content">
+            <%- topic.content %>
+        </div>
+    </div>
+</div>
+
+<% include footer %>

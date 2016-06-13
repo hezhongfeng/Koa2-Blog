@@ -25,10 +25,23 @@
         ;
     </script>
     <style type="text/css">
+        .main.container {
+            margin-top: 7em;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('.ui.sticky').sticky({
+                context: '#main_container',
+                offset: 60
+            });
+        })
+    </script>
+    <style type="text/css">
         body {
             background-color: #FFFFFF;
         }
-
         .ui.menu .item img.logo {
             margin-right: 1.5em;
         }
@@ -36,29 +49,10 @@
 </head>
 <div class="ui fixed inverted main menu" id="main_menu">
     <div class="ui container">
-        <a href="#" class="header item">
+        <a href="/" class="header item">
             <img class="logo" src="/images/logo.png">
-            Project Name
+            MyBlog
         </a>
-        <a href="#" class="item">Home</a>
-        <div class="ui simple dropdown item">
-            Dropdown <i class="dropdown icon"></i>
-            <div class="menu">
-                <a class="item" href="#">Link Item</a>
-                <a class="item" href="#">Link Item</a>
-                <div class="divider"></div>
-                <div class="header">Header Item</div>
-                <div class="item">
-                    <i class="dropdown icon"></i>
-                    Sub Menu
-                    <div class="menu">
-                        <a class="item" href="#">Link Item</a>
-                        <a class="item" href="#">Link Item</a>
-                    </div>
-                </div>
-                <a class="item" href="#">Link Item</a>
-            </div>
-        </div>
         <div class="right menu">
             <a href="/" class="item">首页</a>
             <% if (session && session.user) { %>
@@ -66,7 +60,6 @@
             <% } %>
             <a href="/about" class="item">关于</a>
             <% if (session && session.user) { %>
-            <p>当前账户是<%= session.user.email %></p>
             <a href="/logout" class="item">登出</a>
             <% } else { %>
             <a href="/signup" class="item">注册</a>
@@ -75,3 +68,6 @@
         </div>
     </div>
 </div>
+<div class="ui main container" id="main_container">
+    <div class="ui two column centered grid">
+        <div class="left floated twelve wide column">

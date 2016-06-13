@@ -5,7 +5,7 @@ const client = new Client(db_config);
 
 const Topic = module.exports = {};
 
-Topic.getById = async(user_id) => {
+Topic.getByUserId = async(user_id) => {
   try {
     return await client.query("select * from blog_topic where user_id = ?;", [user_id]);
   } catch (err) {
@@ -15,8 +15,15 @@ Topic.getById = async(user_id) => {
 
 Topic.getAll = async() => {
   try {
-    var result = await client.query("select * from blog_topic where user_id = ?;", [user_id]);
-    return result[0];
+    return await client.query("select * from blog_topic;");
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+Topic.getById = async(id) => {
+  try {
+    return await client.query("select * from blog_topic where id = ?;", [id]);
   } catch (err) {
     console.log(err);
   }
