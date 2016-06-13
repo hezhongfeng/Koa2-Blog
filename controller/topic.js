@@ -10,13 +10,14 @@ const controller = module.exports = {};
  * POST /login - process login
  */
 controller.getTopic = async function (ctx) {
-  //console.log(ctx.params.name);
+  console.log(ctx.session.topics);
   let topics = [];
-  if (ctx.session.user.user_id) {
+  if (ctx.session.user && ctx.session.user.user_id) {
+    console.log('读取部分');
     console.log(ctx.session.user.user_id);
     topics = await Topic.getByUserId(ctx.session.user.user_id);
-  }
-  else {
+  } else {
+    console.log('读取全部');
     topics = await Topic.getAll();
   }
 

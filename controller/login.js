@@ -1,6 +1,7 @@
 'use strict';
 const md5 = require('../lib/md5.js');
 const User = require('../models/user.js');
+const topic = require('../models/topic.js');
 
 const handler = module.exports = {};
 
@@ -9,9 +10,6 @@ const handler = module.exports = {};
  */
 handler.login = async function (ctx) {
   var data = ctx.request.body;
-  console.log("post数据");
-  console.log(data.email);
-  console.log(data.password);
 
   //取出数据库里的用户信息
   const userInfo = await User.get(data.email);
@@ -32,11 +30,17 @@ handler.login = async function (ctx) {
     ctx.flash.set(msg);
     return await ctx.redirect('back', {flash: ctx.flash.get()});
   }
+
   ctx.session.user = {
     user_id: userInfo.id,
     name: userInfo.name,
-    email: userInfo.email
+    signature: userInfo.signature,
+    email: userInfo.email,
   };
+  ctx.session.topics = await topic.getByUserId(userInfo.id);
+
   //登录成功
-  return await ctx.redirect('/', {title: '主页'});
+  console.log("登录成功");
+
+  return await ctx.redirect('/');
 };

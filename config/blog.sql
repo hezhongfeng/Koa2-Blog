@@ -21,7 +21,7 @@ CREATE TABLE `blog_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
-  `type` tinyint(11) NOT NULL DEFAULT '1' COMMENT '1 为管理员  2 为编辑',
+  `type` tinyint(11) NOT NULL DEFAULT '1' COMMENT '1 为管理员 ， 2 为一般编辑用户',
   `email` varchar(255) NOT NULL DEFAULT '',
   `create_time` datetime NOT NULL,
   `last_login_time` datetime NOT NULL,

@@ -16,8 +16,7 @@ const User = module.exports = {};
  */
 User.get = async(email) => {
   try {
-    var result = await client.query("select * from user where email = ?;", [email])
-    console.log(result);
+    let result = await client.query("select * from user where email = ?;", [email]);
     return result[0];
   } catch (err) {
     console.log(err);
