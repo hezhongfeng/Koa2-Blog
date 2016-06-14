@@ -10,7 +10,7 @@ const controller = module.exports = {};
  * POST /login - process login
  */
 controller.getTopic = async function (ctx) {
-  console.log(ctx.session.topics);
+  console.log(ctx.session.user.topics);
   let topics = [];
   if (ctx.session.user && ctx.session.user.user_id) {
     console.log('读取部分');

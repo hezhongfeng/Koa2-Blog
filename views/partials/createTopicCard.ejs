@@ -1,13 +1,15 @@
 <div class="ui card">
     <div class="content">
         <div class="header">你的话题</div>
+        <div class="ui divider"></div>
         <div class="description">Elliot Fu is a film-maker from New York.</div>
-        <% if (session.user.topics) { %>
+        <% if (session.user.topics && false) { %>
         <% session.user.topics.forEach(function (topic) { %>
         <a href="/<%= topic.id %>"><%= topic.title %></a>
         <% })} else { %>
         <p>您还没有任何话题</p>
         <% } %>
     </div>
-    <div class="ui green bottom attached button">发布话题</div>
+    <!--<div class="ui green bottom attached button">发布话题</div>-->
+    <a class=" ui green attached button " href="/create">发表话题</a>
 </div>

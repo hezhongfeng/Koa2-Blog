@@ -7,6 +7,6 @@ const router = new Router({
 })
 
 router
-  .get('/:id',topic.readTopic);
+  .get('/:id',topic.readTopic)
 
 export default router

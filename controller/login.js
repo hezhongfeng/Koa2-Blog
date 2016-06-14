@@ -36,10 +36,12 @@ handler.login = async function (ctx) {
     name: userInfo.name,
     signature: userInfo.signature,
     email: userInfo.email,
+    topics: []
   };
-  ctx.session.topics = await topic.getByUserId(userInfo.id);
+  let topics = await topic.getByUserId(userInfo.id);
+  console.log(topics);
+  console.log(ctx.session.user.topics);
 
-  //登录成功
   console.log("登录成功");
 
   return await ctx.redirect('/');
