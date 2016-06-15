@@ -5,9 +5,13 @@ const router = new Router({
 })
 
 router
-  .get('/', (ctx, next) => {
-  	console.log("到了api");
-    ctx.body = "This is Api page"
+  .post('/test/', (ctx) => {
+    console.log("到了api");
+    console.log(ctx.request.body);
+    //console.log(ctx.request.body.testdata);
+    ctx.body = {
+      test: 'json'
+    }
   })
 
 export default router

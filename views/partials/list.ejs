@@ -3,14 +3,12 @@
     <% topics.forEach(function (topic, index) { %>
     <div class="item">
         <div class="ui right floated">
-            <div class="ui horizontal list">
-                <div class="item">
-                    <a href="/user/<%= topic.user_id %>" class="ui image">
-                        <img class="ui avatar image" src="/images/avatar2/small/lena.png">
-                    </a>
-                </div>
-                <div class="item">
-                    <%= topic.fromNow %>
+            <div class="item">
+                <a class="item" href="/user/<%= topic.user_id %>" class="ui image">
+                    <img class="ui avatar image" src="/images/avatar2/small/lena.png">
+                </a>
+                <div class="content">
+                    <div class="header" style="font-size: small"><%= topic.fromNow %></div>
                 </div>
             </div>
         </div>
@@ -18,9 +16,8 @@
             <img class="ui avatar image" src="/images/avatar2/small/lena.png">
         </a>
         <div class="content">
-            <a class="header" href='/topic/<%= topic.id %>'> <b><%= topic.title %></b> </a>
-            <div class="description" style="font-size: small"><b>回复<%= topic.post_count %>•浏览<%= topic.view_count %></b>
-            </div>
+            <a class="ui item" href='/topic/<%= topic.id %>'> <b><%= topic.title %></b></a>
+            <div class="description" style="font-size: small">回复<%= topic.post_count %>•浏览<%= topic.view_count %></div>
         </div>
     </div>
     <% if (topicsLen > index + 1) { %>

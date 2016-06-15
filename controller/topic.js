@@ -13,14 +13,14 @@ const controller = module.exports = {};
  */
 controller.getTopic = async function (ctx) {
   if (ctx.session.user && ctx.session.user.topics)
-    console.log(ctx.session.user.topics);
-  let topics = [];
+    //console.log(ctx.session.user.topics);
+  var topics = [];
   if (ctx.session.user && ctx.session.user.user_id) {
-    console.log('读取部分');
-    console.log(ctx.session.user.user_id);
+    //console.log('读取部分');
+    //console.log(ctx.session.user.user_id);
     topics = await Topic.getByUserId(ctx.session.user.user_id);
   } else {
-    console.log('读取全部');
+    //console.log('读取全部');
     topics = await Topic.getAll();
   }
 
@@ -39,10 +39,9 @@ controller.readTopic = async function (ctx) {
   if (topics[0]) {
     let topic = topics[0];
     topic.fromNow = moment(topic.create_time).fromNow();
-    console.log(topic.content);
-    //topic.content = markdown.toHTML(topic.content);
+
     topic.content = parser.parse(topic.content);
-    console.log(topic.content);
+    //console.log(topic.content);
 
     await ctx.render('topic', {title: '', flash: ctx.flash.get(), session: ctx.session, topic: topic});
   }
