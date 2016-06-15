@@ -38,9 +38,17 @@ handler.login = async function (ctx) {
     email: userInfo.email,
     topics: []
   };
+
   let topics = await topic.getByUserId(userInfo.id);
-  console.log(topics);
-  console.log(ctx.session.user.topics);
+  topics.reverse();
+  topics = topics.slice(0, 5);
+  topics.forEach(function (topic) {
+      let data = {};
+      data.id = topic.id;
+      data.title = topic.title;
+      ctx.session.user.topics.push(data);
+    }
+  );
 
   console.log("登录成功");
 

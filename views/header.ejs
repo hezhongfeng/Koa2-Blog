@@ -9,6 +9,11 @@
     <script>
         $(document)
                 .ready(function () {
+//                    $('.ui.sticky')
+//                            .sticky({
+//                                topOffset: 70,
+//                                context: '#main_container_grid',
+//                            });
                     $('.ui.menu .ui.dropdown').dropdown({
                         on: 'hover'
                     });
@@ -29,15 +34,6 @@
             margin-top: 7em;
         }
     </style>
-
-    <script>
-        $(document).ready(function () {
-            $('.ui.sticky').sticky({
-                context: '#main_container',
-                offset: 60
-            });
-        })
-    </script>
     <style type="text/css">
         body {
             background-color: #FFFFFF;
@@ -48,6 +44,7 @@
         }
     </style>
 </head>
+<body>
 <div class="ui fixed inverted main menu" id="main_menu">
     <div class="ui container">
         <a href="/" class="header item">
@@ -69,6 +66,6 @@
         </div>
     </div>
 </div>
-<div class="ui main container" id="main_container">
+<div class="ui main container" style="margin-top: 70px;">
     <div class="ui two column centered grid">
-        <div class="left floated twelve wide column">
+        <div class="left floated twelve wide column" id="main_container_grid">

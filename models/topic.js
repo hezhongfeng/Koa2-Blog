@@ -28,3 +28,16 @@ Topic.getById = async(id) => {
     console.log(err);
   }
 }
+
+Topic.create = async(data) => {
+  try {
+    return await client.query("insert into blog_topic ( user_id,title,content,create_time,update_time) values (?,?,?,?,?);",
+      [data.user_id,
+        data.title,
+        data.content,
+        new Date,
+        new Date]);
+  } catch (err) {
+    console.log(err);
+  }
+}

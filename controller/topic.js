@@ -2,6 +2,8 @@
 const Topic = require('../models/topic.js');
 const moment = require('moment');
 const markdown = require('markdown').markdown;
+const mditor = require('mditor');
+var parser = new mditor.Parser();
 moment.locale('zh-cn');
 
 const controller = module.exports = {};
@@ -10,7 +12,8 @@ const controller = module.exports = {};
  * POST /login - process login
  */
 controller.getTopic = async function (ctx) {
-  console.log(ctx.session.user.topics);
+  if (ctx.session.user && ctx.session.user.topics)
+    console.log(ctx.session.user.topics);
   let topics = [];
   if (ctx.session.user && ctx.session.user.user_id) {
     console.log('读取部分');
@@ -36,7 +39,11 @@ controller.readTopic = async function (ctx) {
   if (topics[0]) {
     let topic = topics[0];
     topic.fromNow = moment(topic.create_time).fromNow();
-    topic.content = markdown.toHTML(topic.content);
+    console.log(topic.content);
+    //topic.content = markdown.toHTML(topic.content);
+    topic.content = parser.parse(topic.content);
+    console.log(topic.content);
+
     await ctx.render('topic', {title: '', flash: ctx.flash.get(), session: ctx.session, topic: topic});
   }
   else {

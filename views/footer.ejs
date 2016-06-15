@@ -1,16 +1,11 @@
 </div>
 <div class="right floated left aligned four wide column">
-    <div class="ui bound top sticky">
-
-    </div>
-    <div class="ui sticky transition visible">
-        <div class="ui following fluid accordion cards">
-            <% if (session && session.user) { %>
-            <% include partials/userCard %>
-            <% include partials/createTopicCard %>
-            <% } %>
-            <% include partials/linkCard %>
-        </div>
+    <div class="ui fluid accordion cards">
+        <% if (session && session.user) { %>
+        <% include partials/userCard %>
+        <% include partials/createTopicCard %>
+        <% } %>
+        <% include partials/linkCard %>
     </div>
 </div>
 </div>

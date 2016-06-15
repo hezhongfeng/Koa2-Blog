@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-const topic = require('../controller/topic');
+const create = require('../controller/create');
 
 
 const router = new Router({
@@ -7,9 +7,12 @@ const router = new Router({
 })
 
 router
-  .get('/',async(ctx) => {
-    console.log('/create');
-    await ctx.render('createTopic', {title: '发布界面', flash: ctx.flash.get(), session: ctx.session});
-  });
+  .get('/', async(ctx) => {
+    console.log(ctx.session.user.user_id);
+
+    await ctx.render('create', {title: '发布界面', flash: ctx.flash.get(), session: ctx.session});
+  })
+
+  .post('/', create.post)
 
 export default router

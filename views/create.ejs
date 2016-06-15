@@ -1,0 +1,37 @@
+<% include header %>
+
+<link rel="stylesheet" href="/mditor.min.css"/>
+<script src="/mditor.min.js"></script>
+
+<style>
+    .mditor {
+        margin-bottom: 10px;
+    }
+</style>
+
+<script>
+    var mditor = new Mditor("#editor", {
+        height: 400,
+        fixedHeight: true
+    });
+</script>
+
+<form class="ui form" method="post" action="/create">
+    <h2>发表话题</h2>
+    <div class="field required">
+        <label>标题</label>
+        <input placeholder="标题字数不少于10字" type="text" name="title">
+    </div>
+	<textarea name="content" id="editor">
+	</textarea>
+    <input type="submit" class="ui button" value="发布">
+</form>
+
+<script>
+    var mditor = new Mditor("#editor", {
+        height: 400,
+        fixedHeight: true
+    });
+</script>
+
+<% include footer %>
