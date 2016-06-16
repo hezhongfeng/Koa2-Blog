@@ -1,7 +1,7 @@
 import Router from 'koa-router'
 const login = require('../controller/login');
 const signup = require('../controller/signup');
-const topic = require('../controller/topic');
+const home = require('../controller/home');
 
 const router = new Router()
 
@@ -10,7 +10,7 @@ router
 /**
  * 主页
  */
-  .get('/', topic.getTopic)
+  .get('/', home.getHome)
 
   /**
    * 登出

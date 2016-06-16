@@ -1,0 +1,6 @@
+<% if (topics) { %>
+<% topics.forEach(function (topic) { %>
+<a class='item' href="/topic/<%= topic.id %>"><%= topic.title %></a>
+<% })} else { %>
+<p>您还没有任何话题</p>
+<% } %>

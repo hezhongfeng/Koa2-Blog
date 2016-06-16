@@ -16,11 +16,11 @@ controller.getTopic = async function (ctx) {
     //console.log(ctx.session.user.topics);
   var topics = [];
   if (ctx.session.user && ctx.session.user.user_id) {
-    //console.log('读取部分');
-    //console.log(ctx.session.user.user_id);
+    console.log('读取部分');
+    console.log(ctx.session.user.user_id);
     topics = await Topic.getByUserId(ctx.session.user.user_id);
   } else {
-    //console.log('读取全部');
+    console.log('读取全部');
     topics = await Topic.getAll();
   }
 

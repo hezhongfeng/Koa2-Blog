@@ -2,9 +2,9 @@
     <div class="content">
         <div class="header">你的话题</div>
         <div class="ui divider"></div>
-        <div class="ui link list">
-            <% if (session.user && session.user.topics ) { %>
-            <% session.user.topics.forEach(function (topic) { %>
+        <div class="ui link list" id="user_card_list">
+            <% if (userTopics) { %>
+            <% userTopics.forEach(function (topic) { %>
             <a class='item' href="/topic/<%= topic.id %>"><%= topic.title %></a>
             <% })} else { %>
             <p>您还没有任何话题</p>
@@ -12,26 +12,28 @@
         </div>
     </div>
     <a class=" ui green attached button " href="/create">发表话题</a>
+    <form id="sentToServer">
+        <input type="text" name="name"/>
+        <input type="button" id="enter" value="提交">
+    </form>
+
     <script type="text/javascript">
-        var Submit = function(){
+        $('#enter').click(function () {
             console.log("提交post");
             $.ajax({
                 url: "/api/test/",
                 data: $('#sentToServer').serialize(),
-                type:"POST",
-                dataType:'text',
-                success: function(msg){
+                type: "POST",
+                cache:false,
+                dataType: 'text',
+                success: function (msg) {
                     alert(msg);
+                },
+                error: function () {
+                    alert('异常');
                 }
-                error: function(msg){
-                    alert(msg);
-                }
-            });
-        };
+            })
+        });
     </script>
-    <form id="sentToServer">
-        <input type="text" name="name" id="name"/>
-        <input type="button" value="Upload" onClick="Submit()"/>
-    </form>
 
 </div>

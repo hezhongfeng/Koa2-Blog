@@ -39,6 +39,8 @@ handler.login = async function (ctx) {
     topics: []
   };
 
+  //console.log(ctx.session.user.user_id);
+
   let topics = await topic.getByUserId(userInfo.id);
   topics.reverse();
   topics = topics.slice(0, 5);

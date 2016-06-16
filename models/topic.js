@@ -5,9 +5,14 @@ const client = new Client(db_config);
 
 const Topic = module.exports = {};
 
-Topic.getByUserId = async(user_id) => {
+Topic.getByUserId = async(user_id, limit_count) => {
   try {
-    return await client.query("select * from blog_topic where user_id = ?;", [user_id]);
+    if (limit_count) {
+      return await client.query("select id,title from blog_topic where user_id = ? order by create_time desc limit ? ;", [user_id,limit_count]);
+    }
+    else {
+      return await client.query("select * from blog_topic where user_id = ?;", [user_id]);
+    }
   } catch (err) {
     console.log(err);
   }

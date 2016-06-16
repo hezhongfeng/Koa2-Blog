@@ -12,15 +12,29 @@
                     $('.ui.menu .ui.dropdown').dropdown({
                         on: 'hover'
                     });
-                    $('.ui.menu a.item')
-                            .on('click', function () {
+                    $('.ui.menu a.item').on('click', function () {
                                 $(this)
                                         .addClass('active')
                                         .siblings()
-                                        .removeClass('active')
-                                ;
-                            })
-                    ;
+                                        .removeClass('active');
+                    });
+                    <!--{-->
+                        <!--<% if (session && session.user && session.user.user_id) { %>-->
+                        <!--console.log("更新用户文章");-->
+                        <!--$.ajax({-->
+                            <!--url: "/api/getUserTopic/",-->
+                            <!--data: {user_id: <%= session.user.user_id %>},-->
+                            <!--type: "POST",-->
+                            <!--success: function (topics) {-->
+                                <!--$("#user_card_list").html(topics);-->
+                                <!--console.log(topics);-->
+                            <!--},-->
+                            <!--error: function () {-->
+                                <!--alert('异常');-->
+                            <!--}-->
+                        <!--})-->
+                        <!--<%}%>-->
+                    <!--};-->
                 })
         ;
     </script>
