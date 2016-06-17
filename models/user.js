@@ -1,7 +1,7 @@
 'use strict';
 import Client from 'mysql-pro'
-const dbconfig = require('../config/database.json');
-const client = new Client(dbconfig);
+const config = require('../config/database.json');
+const client = new Client(config);
 
 exports.get = async(id) => {
   const result = await client.query("select * from user where id = ?;", [id]);
@@ -11,7 +11,8 @@ exports.get = async(id) => {
 
 exports.getBy = async(field, value) => {
   try {
-    const result = await client.query("select * from user where ${field} = ?;", [value]);
+    const sql = `select * from user Where ${field} = ? `;
+    const result = await client.query(sql, [value]);
     const users = result[0];
     return users;
   } catch (err) {
@@ -23,14 +24,18 @@ exports.getBy = async(field, value) => {
 exports.insert = async(values) => {
   try {
     let emailRepeat = await client.query("select * from user where email = ? limit 1;", [values.email]);
-    if (emailRepeat.length !== 0)
+    if (emailRepeat.length !== 0) {
       return 'emailRepeat';
-
+    }
+    
     let nameRepeat = await client.query("select * from user where email = ?;", [values.name]);
-    if (nameRepeat.length !== 0)
+    if (nameRepeat.length !== 0) {
       return 'nameRepeat';
+    }
 
     return await client.query("insert into user (name,password,email,gender,signature) values (?,?,?,?,?);", [values.name, values.password, values.email, values.gender, values.signature]);
+  } catch (e) {
+    console.error(e);
   }
   // catch (e) {
   //   switch (e.code) {

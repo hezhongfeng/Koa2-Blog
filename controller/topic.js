@@ -38,7 +38,7 @@ exports.readTopic = async function (ctx) {
     ttopic.fromNow = moment(ttopic.create_time).fromNow();
     ttopic.content = parser.parse(ttopic.content);
     var userTopics = await Topic.getByUserId(ttopic.user_id,5);
-    var topicUser = user.getById(ttopic.user_id);
+    var topicUser = user.get(ttopic.user_id);
     var position = 'topic';
     await ctx.render('topic', {title: '', flash: ctx.flash.get(), session: ctx.session, topic: ttopic,userTopics:userTopics,topicUser:topicUser,position:position});
   }

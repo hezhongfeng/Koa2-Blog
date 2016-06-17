@@ -8,15 +8,15 @@ import serve from 'koa-static'
 import logger from 'koa-logger'
 import convert from 'koa-convert'
 import bodyParser from 'koa-bodyparser'
-import session from 'koa-session'
+import session from 'koa-session2'
 import flash from 'koa-flash-simple'
 import onerror  from 'koa-onerror'
 
-import user from 'routes/user'
-import topic from 'routes/topic'
-import create from 'routes/create'
-import api from 'routes/api'
-import index from 'routes/index'
+import user from './routes/user'
+import topic from './routes/topic'
+import create from './routes/create'
+import api from './routes/api'
+import index from './routes/index'
 
 const app = new Koa()
 
@@ -40,8 +40,14 @@ app.use(compress({
 // 记录所用方式与时间
 app.use(convert(logger()))
 
-app.keys = ['some secret hezf'];//设置 Signed Cookie 的密钥
-app.use(convert(session(app)));
+// app.keys = ['some secret hezf'];//设置 Signed Cookie 的密钥
+// app.use(convert(session(app)));
+app.use(session({
+ //default "koa:sess"
+  //key:'hezf_session',
+  //secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
+  maxAge: 1000 *60 *60 *24,
+}));
 
 // 设置跨域
 //我的网页服务器和数据库服务器域名不一样,应该是资源的限制；同一域名和同一端口

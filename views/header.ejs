@@ -2,7 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title><%= title %></title>
+    <title>
+        <% if((typeof(title) !== 'undefined')){ %>
+        <%= title %>
+        <% } %>
+    </title>
     <link rel="stylesheet" href="/semantic.min.css">
     <script src="/jquery.min.js"></script>
     <script src="/semantic.min.js"></script>
@@ -13,28 +17,11 @@
                         on: 'hover'
                     });
                     $('.ui.menu a.item').on('click', function () {
-                                $(this)
-                                        .addClass('active')
-                                        .siblings()
-                                        .removeClass('active');
+                        $(this)
+                                .addClass('active')
+                                .siblings()
+                                .removeClass('active');
                     });
-                    <!--{-->
-                        <!--<% if (session && session.user && session.user.user_id) { %>-->
-                        <!--console.log("更新用户文章");-->
-                        <!--$.ajax({-->
-                            <!--url: "/api/getUserTopic/",-->
-                            <!--data: {user_id: <%= session.user.user_id %>},-->
-                            <!--type: "POST",-->
-                            <!--success: function (topics) {-->
-                                <!--$("#user_card_list").html(topics);-->
-                                <!--console.log(topics);-->
-                            <!--},-->
-                            <!--error: function () {-->
-                                <!--alert('异常');-->
-                            <!--}-->
-                        <!--})-->
-                        <!--<%}%>-->
-                    <!--};-->
                 })
         ;
     </script>

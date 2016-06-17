@@ -1,23 +1,36 @@
-<div class="ui big middle aligned divided link list">
+<div class="ui big middle aligned divided list">
     <% var topicsLen = topics.length; %>
     <% topics.forEach(function (topic, index) { %>
-    <div class="item">
+    <style type="text/css">
+        div.item.hover:hover {
+            background-color: rgba(225, 225, 225, 0.35);
+        }
+        a.hover {
+            color: #333;
+        }
+        a.hover:hover {
+            color: #4078c0;
+        }
+    </style>
+    <div class="item hover">
         <div class="ui right floated">
-            <div class="item">
-                <a class="item" href="/user/<%= topic.user_id %>" class="ui image">
-                    <img class="ui avatar image" src="/images/avatar2/small/lena.png">
-                </a>
-                <div class="content">
-                    <div class="header" style="font-size: small"><%= topic.fromNow %></div>
+            <div class="ui horizontal list">
+                <div class="item">
+                    <a class="item" href="/user/<%= topic.user_id %>" class="ui image">
+                        <img class="ui avatar image" src="/images/avatar2/small/lena.png">
+                    </a>
+                </div>
+                <div class="item" style="width: 60px; margin: 0px;padding: 0px">
+                    <div class="content" style="font-size: smaller"><%= topic.fromNow %></div>
                 </div>
             </div>
         </div>
-        <a href="/user/<%= topic.user_id %>" class="ui image">
+        <a href="/user/<%= topic.user_id %>" class="ui image" style="padding-left: 5px">
             <img class="ui avatar image" src="/images/avatar2/small/lena.png">
         </a>
-        <div class="content">
-            <a class="ui item" href='/topic/<%= topic.id %>'> <b><%= topic.title %></b></a>
-            <div class="description" style="font-size: small">回复<%= topic.post_count %>•浏览<%= topic.view_count %></div>
+        <div class="content" style="margin: 0px;padding: 0px">
+            <a class="hover" href='/topic/<%= topic.id %>' style="font-weight: bold;"> <%= topic.title %></a>
+            <div class="content" style="font-size: small;color: #767676">回复<%= topic.post_count %>•浏览<%= topic.view_count %></div>
         </div>
     </div>
     <% if (topicsLen > index + 1) { %>

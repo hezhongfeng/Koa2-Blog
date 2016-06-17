@@ -10,10 +10,9 @@ exports.login = async function (ctx) {
   var data = ctx.request.body;
 
   //取出数据库里的用户信息
-  const userInfo = await User.get(data.email);
+  const userInfo = await User.getBy('email',data.email);
   var msg = {};
   msg.result= false;
-
 
   //信息为空，说明没有这个账号
   if (!userInfo) {

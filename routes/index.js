@@ -36,5 +36,12 @@ router
   })
   .post('/signup', signup.signup)
 
+  /**
+   * 关于
+   */
+  // .get('/about', async(ctx) => {
+  //   await ctx.render('about');
+  // })
+
 
 export default router
