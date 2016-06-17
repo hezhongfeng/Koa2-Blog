@@ -3,32 +3,30 @@ const md5 = require('../lib/md5.js');
 const User = require('../models/user.js');
 const topic = require('../models/topic.js');
 
-const handler = module.exports = {};
-
 /**
  * POST /login - process login
  */
-handler.login = async function (ctx) {
+exports.login = async function (ctx) {
   var data = ctx.request.body;
 
   //取出数据库里的用户信息
   const userInfo = await User.get(data.email);
-  let msg = {};
+  var msg = {};
+  msg.result= false;
+
 
   //信息为空，说明没有这个账号
   if (!userInfo) {
     //通过维护这个msg来向ejs里面更新信息，这里更新的是错误信息（可以将其传走更新）
     msg.error = '账户错误';
-    ctx.flash.set(msg);
-    return await ctx.redirect('back');
+    return ctx.body = msg;
   }
 
   data.password = await md5.md5(data.password);
   //比较密码的哈希md5
   if (data.password !== userInfo.password) {
     msg.error = '密码错误';
-    ctx.flash.set(msg);
-    return await ctx.redirect('back', {flash: ctx.flash.get()});
+    return ctx.body = msg;
   }
 
   ctx.session.user = {
@@ -36,23 +34,9 @@ handler.login = async function (ctx) {
     name: userInfo.name,
     signature: userInfo.signature,
     email: userInfo.email,
-    topics: []
   };
 
-  //console.log(ctx.session.user.user_id);
-
-  let topics = await topic.getByUserId(userInfo.id);
-  topics.reverse();
-  topics = topics.slice(0, 5);
-  topics.forEach(function (topic) {
-      let data = {};
-      data.id = topic.id;
-      data.title = topic.title;
-      ctx.session.user.topics.push(data);
-    }
-  );
-
+  msg.result = true;
   console.log("登录成功");
-
-  return await ctx.redirect('/');
+  return ctx.body = msg;
 };

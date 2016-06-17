@@ -1,17 +1,15 @@
 'use strict';
 const Topic = require('../models/topic.js');
+const user = require('../models/user.js');
 const moment = require('moment');
-const markdown = require('markdown').markdown;
 const mditor = require('mditor');
 var parser = new mditor.Parser();
 moment.locale('zh-cn');
 
-const controller = module.exports = {};
-
 /**
  * POST /login - process login
  */
-controller.getTopic = async function (ctx) {
+exports.getTopic = async function (ctx) {
   if (ctx.session.user && ctx.session.user.topics)
     //console.log(ctx.session.user.topics);
   var topics = [];
@@ -30,20 +28,19 @@ controller.getTopic = async function (ctx) {
   await ctx.render('index', {title: '主页', flash: ctx.flash.get(), session: ctx.session, topics: topics});
 };
 
-controller.readTopic = async function (ctx) {
+exports.readTopic = async function (ctx) {
   let topics = [];
   if (ctx.params.id) {
-    console.log(ctx.session.user.user_id);
     topics = await Topic.getById(ctx.params.id);
   }
   if (topics[0]) {
-    let topic = topics[0];
-    topic.fromNow = moment(topic.create_time).fromNow();
-
-    topic.content = parser.parse(topic.content);
-    //console.log(topic.content);
-
-    await ctx.render('topic', {title: '', flash: ctx.flash.get(), session: ctx.session, topic: topic});
+    let ttopic = topics[0];
+    ttopic.fromNow = moment(ttopic.create_time).fromNow();
+    ttopic.content = parser.parse(ttopic.content);
+    var userTopics = await Topic.getByUserId(ttopic.user_id,5);
+    var topicUser = user.getById(ttopic.user_id);
+    var position = 'topic';
+    await ctx.render('topic', {title: '', flash: ctx.flash.get(), session: ctx.session, topic: ttopic,userTopics:userTopics,topicUser:topicUser,position:position});
   }
   else {
     await ctx.render('back');

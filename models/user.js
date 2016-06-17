@@ -1,47 +1,52 @@
-/**
- * Created by Administrator on 2016/5/26.
- */
 'use strict';
 import Client from 'mysql-pro'
 const dbconfig = require('../config/database.json');
 const client = new Client(dbconfig);
 
-const User = module.exports = {};
+exports.get = async(id) => {
+  const result = await client.query("select * from user where id = ?;", [id]);
+  const users = result[0];
+  return users;
+};
 
-/**
- * Returns User details (convenience wrapper for single User details).
- *
- * @param   {number} id - User id or undefined if not found.
- * @returns {Object} User details.
- */
-User.get = async(email) => {
+exports.getBy = async(field, value) => {
   try {
-    let result = await client.query("select * from user where email = ?;", [email]);
-    return result[0];
+    const result = await client.query("select * from user where ${field} = ?;", [value]);
+    const users = result[0];
+    return users;
   } catch (err) {
     console.log(err);
   }
 }
 
 
-User.createUser = async(userInfo) => {
+exports.insert = async(values) => {
   try {
-    let result = await client.query("select * from user where email = ?;", [userInfo.email]);
-    if (result.length === 0) {
-      //insert into后跳转到登录界面，或者直接是用户界面
-      return await client.query("insert into user (name,password,email,gender,signature) values (?,?,?,?,?);",
-        [userInfo.name,
-          userInfo.password,
-          userInfo.email,
-          userInfo.gender,
-          userInfo.signature]);
-    }
-    return 'repeat';
-  } catch (errors) {
-    console.log(errors);
-    return 'db_error';
+    let emailRepeat = await client.query("select * from user where email = ? limit 1;", [values.email]);
+    if (emailRepeat.length !== 0)
+      return 'emailRepeat';
+
+    let nameRepeat = await client.query("select * from user where email = ?;", [values.name]);
+    if (nameRepeat.length !== 0)
+      return 'nameRepeat';
+
+    return await client.query("insert into user (name,password,email,gender,signature) values (?,?,?,?,?);", [values.name, values.password, values.email, values.gender, values.signature]);
   }
-}
+  // catch (e) {
+  //   switch (e.code) {
+  //     // recognised errors for User.update - just use default MySQL messages for now
+  //     case 'ER_BAD_NULL_ERROR':
+  //     case 'ER_NO_REFERENCED_ROW_2':
+  //     case 'ER_NO_DEFAULT_FOR_FIELD':
+  //       throw new errors(403, e.message); // Forbidden
+  //     case 'ER_DUP_ENTRY':
+  //       throw ModelError(409, e.message); // Conflict
+  //     default:
+  //       throw ModelError(500, e.message); // Internal Server Error
+  //   }
+  // }
+};
+
 
 // /**
 //  * Returns Users with given field matching given value.

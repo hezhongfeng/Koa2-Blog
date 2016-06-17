@@ -2,9 +2,7 @@
 const md5 = require('../lib/md5.js');
 const User = require('../models/user.js');
 
-const handler = module.exports = {};
-
-handler.signup = async function (ctx) {
+exports.signup = async function (ctx) {
   try {
     var data = ctx.request.body;
     data.password = await md5.md5(data.password);

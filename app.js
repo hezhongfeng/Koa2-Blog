@@ -8,17 +8,15 @@ import serve from 'koa-static'
 import logger from 'koa-logger'
 import convert from 'koa-convert'
 import bodyParser from 'koa-bodyparser'
-import koaBetterBody from 'koa-better-body'
-import multer from 'koa-multer'
 import session from 'koa-session'
 import flash from 'koa-flash-simple'
 import onerror  from 'koa-onerror'
 
-import index from './router/index'
-import user from './router/user'
-import topic from './router/topic'
-import create from './router/create'
-import api from './router/api'
+import user from 'routes/user'
+import topic from 'routes/topic'
+import create from 'routes/create'
+import api from 'routes/api'
+import index from 'routes/index'
 
 const app = new Koa()
 
@@ -54,12 +52,6 @@ app.use(convert(json()))
 
 // body解析
 app.use(bodyParser())
-//app.use(convert(bodyParser()))
-//app.use(convert(koaBetterBody()))
-//app.use(bodyParser())
-
-//app.use(convert(session()))//会话支持，这个没接触过,这里不注释的话会报错，以后要加上
-//app.use(convert(flash()))
 
 // 设置渲染引擎
 app.use(views(__dirname + '/views', {//这里应该是包含了ejs和别的一些，这里把扩展给限定为ejs
@@ -84,5 +76,5 @@ app.use(topic.routes())
 app.use(create.routes())
 app.use(api.routes())
 
-app.listen(process.env.PORT || 3000)//这里监听3000端口，默认貌似也是3000
-console.log(`Server up and running! On port ${process.env.PORT || 3000}!`);
+app.listen(3000)//这里监听3000端口，默认貌似也是3000
+console.log(`Server up and running! On port 3000!`);

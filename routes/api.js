@@ -1,5 +1,7 @@
 import Router from 'koa-router'
 const topic = require('../models/topic.js');
+const user = require('../models/user.js');
+const login = require('../controller/login.js');
 
 const router = new Router({
   prefix: '/api'
@@ -7,18 +9,21 @@ const router = new Router({
 
 router
   .post('/test/', (ctx) => {
-    console.log("到了api");
-    console.log(ctx.request.body);
     ctx.body = {
       test: 'json'
     }
   })
 
   .post('/getUserTopic', async(ctx) => {
-    console.log("到了api");
-    console.log(ctx.request.body);
     var topics = await topic.getByUserId(ctx.request.body.user_id,5);
     await ctx.render('updatePartials/userTopicsLink',{topics:topics});
   })
+  
+  .post('/getSignature', async(ctx) => {
+    var topics = await user.get(ctx.request.body.email);
+    await ctx.body('<div class=\"extra content\">');
+  })
+
+  .post('/login', login.login)
 
 export default router

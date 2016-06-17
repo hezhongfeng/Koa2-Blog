@@ -1,9 +1,21 @@
 </div>
 <div class="right floated left aligned four wide column">
     <div class="ui cards">
+        <% if (typeof(position) !== "undefined") { %>
+
+        <% if (position === "home") { %>
         <% if (session && session.user) { %>
         <% include partials/userCard %>
         <% include partials/createTopicCard %>
+        <% } %>
+        <% } else if (position === "topic") { %>
+        <% include partials/topicUserCard %>
+        <% include partials/createTopicCard %>
+        <% } else if (position === "create") { %>
+        <% include partials/userCard %>
+        <% include partials/markSyntax %>
+        <% } %>
+
         <% } %>
         <% include partials/linkCard %>
     </div>

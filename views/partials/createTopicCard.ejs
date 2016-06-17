@@ -3,7 +3,7 @@
         <div class="header">你的话题</div>
         <div class="ui divider"></div>
         <div class="ui link list" id="user_card_list">
-            <% if (userTopics) { %>
+            <% if (typeof(userTopics) !== "undefined"){ %>
             <% userTopics.forEach(function (topic) { %>
             <a class='item' href="/topic/<%= topic.id %>"><%= topic.title %></a>
             <% })} else { %>
@@ -12,10 +12,6 @@
         </div>
     </div>
     <a class=" ui green attached button " href="/create">发表话题</a>
-    <form id="sentToServer">
-        <input type="text" name="name"/>
-        <input type="button" id="enter" value="提交">
-    </form>
 
     <script type="text/javascript">
         $('#enter').click(function () {
@@ -24,7 +20,7 @@
                 url: "/api/test/",
                 data: $('#sentToServer').serialize(),
                 type: "POST",
-                cache:false,
+                cache: false,
                 dataType: 'text',
                 success: function (msg) {
                     alert(msg);

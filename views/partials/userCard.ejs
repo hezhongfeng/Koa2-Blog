@@ -1,4 +1,5 @@
 <div class="ui card">
+    <% if (session && session.user && session.user.name) { %>
     <div class="content">
         <div class="right floated meta">积分：40</div>
         <a href="/user/<%= session.user.name %>">
@@ -8,4 +9,5 @@
     <div class="extra content">
         <%= session.user.signature %>
     </div>
+    <% } %>
 </div>

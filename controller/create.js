@@ -2,9 +2,7 @@
 
 const topic = require('../models/topic.js');
 
-const handler = module.exports = {};
-
-handler.post = async function (ctx) {
+exports.post = async function (ctx) {
   console.log("create post 数据");
   console.log(ctx.session.user.user_id);
   try {

@@ -9,8 +9,8 @@ const router = new Router({
 router
   .get('/', async(ctx) => {
     console.log(ctx.session.user.user_id);
-
-    await ctx.render('create', {title: '发布界面', flash: ctx.flash.get(), session: ctx.session});
+    var position = 'create';
+    await ctx.render('create', {title: '发布界面', flash: ctx.flash.get(), session: ctx.session, position: position});
   })
 
   .post('/', create.post)

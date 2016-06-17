@@ -27,7 +27,6 @@ router
   .get('/login', async(ctx) => {
     await ctx.render('login', {title: '登录界面', flash: ctx.flash.get(), session: ctx.session});
   })
-  .post('/login', login.login)
 
   /**
    * 注册页面
