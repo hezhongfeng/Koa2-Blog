@@ -1,38 +1,67 @@
 'use strict';
-const md5 = require('../lib/md5.js');
+const encipher = require('../lib/encipher.js');
 const user = require('../models/user.js');
 
 exports.signup = async function (ctx) {
   try {
     var data = ctx.request.body;
-    data.password = await md5.md5(data.password);
-    let result = await user.insert(data);
-    let msg = {};
-    if (result === 'emailRepeat') {
-      msg.message = '此邮箱已注册';
-      ctx.flash.set(msg);
-      return await ctx.redirect('back');
-    } else if (result === 'nameRepeat') {
-      msg.message = '用户名重复';
-      ctx.flash.set(msg);
-      return await ctx.redirect('back');
-    } else if (result === 'db_error') {
-      msg.message = '数据库出错';
-      ctx.flash.set(msg);
-      return await ctx.redirect('back');
-    } else {
-      console.log(result);
-      var userInfo = await user.getBy('email',data.email);
-      //应该在此处更新下session
-      console.log(userInfo);
-      ctx.session.user = {
-        user_id: userInfo.id,
-        name: userInfo.name,
-        signature: userInfo.signature,
-        email: userInfo.email,
-      };
-      return await ctx.redirect('/', {title: '主页面'});
+    let message = {};
+    message.result = false;
+
+    // check is username exist
+    let isUsernameExist = await user.findOne({
+      where: {
+        userName: data.name
+      }
+    })
+
+    if (isUsernameExist) {
+      message.message = '用户名已注册';
+      ctx.body = message;
+      return ctx;
     }
+
+    // check is email exist
+    let isEmailExist = await user.findOne({
+      where: {
+        email: data.email
+      }
+    })
+
+    if (isEmailExist) {
+      message.message = '此邮箱已注册';
+      ctx.body = message;
+      return ctx;
+    }
+
+    data.password = await encipher.getMd5(data.password);
+    var userInfo = {
+      userName: data.name,
+      password: data.password,
+      email: data.email,
+      gender: data.gender,
+      signature: data.signature
+    };
+
+    let createResult = await user.create(userInfo);
+    console.log(createResult);
+    message.result = true;
+
+    userInfo = await user.findOne({
+      where: {
+        email: data.email
+      }
+    });
+
+    //update session
+    ctx.session.user = {
+      user_id: userInfo.dataValues.id,
+      name: userInfo.dataValues.name,
+      signature: userInfo.dataValues.signature,
+      email: userInfo.dataValues.email,
+    };
+    ctx.body = message;
+    return ctx;
   }
   catch (err) {
     console.log(err);

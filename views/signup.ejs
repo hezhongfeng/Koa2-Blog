@@ -100,9 +100,38 @@
                                             }
                                         ]
                                     }
+                                },
+                                //inline: true,
+                                on: 'blur',
+                                //transition: 'fade down',
+                                onSuccess: submitSignUp
+                            });
+                    function submitSignUp() {
+                        console.log('注册提交');
+                        $.ajax({
+                            url: "/api/signup",
+                            data: $('.ui.form').serialize(),
+                            type: "POST",
+                            cache: false,
+                            dataType: 'json',
+                            success: function (msg) {
+                                console.log(msg);
+                                if(msg.result){
+                                    window.location.href='/';
                                 }
-                            })
-                    ;
+                                else {
+                                    ;
+                                }
+                                //console.log($('.ui.error.message').text);
+                            },
+                            error: function () {
+                                alert('异常');
+                            }
+                        })
+                    };
+                    $('.ui.form').submit(function () {
+                        return false;
+                    });
                 })
         ;
     </script>

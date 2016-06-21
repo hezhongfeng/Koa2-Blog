@@ -2,6 +2,7 @@ import Router from 'koa-router'
 const topic = require('../models/topic.js');
 const user = require('../models/user.js');
 const login = require('../controller/login.js');
+const signup = require('../controller/signup');
 
 const router = new Router({
   prefix: '/api'
@@ -25,5 +26,7 @@ router
   })
 
   .post('/login', login.login)
+
+  .post('/signup', signup.signup)
 
 export default router

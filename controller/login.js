@@ -1,33 +1,42 @@
 'use strict';
-const md5 = require('../lib/md5.js');
-const User = require('../models/user.js');
+const encipher = require('../lib/encipher.js');
+const user = require('../models/user.js');
 const topic = require('../models/topic.js');
 
 /**
- * POST /login - process login
+ *
+ * @param ctx
+ * @returns {{}}
  */
 exports.login = async function (ctx) {
   var data = ctx.request.body;
+  var message = {};
+  message.result = false;
 
   //取出数据库里的用户信息
-  const userInfo = await User.getBy('email',data.email);
-  var msg = {};
-  msg.result= false;
+  const userInfo = await await user.findOne({
+    where: {
+      email: data.email
+    }
+  });
 
   //信息为空，说明没有这个账号
   if (!userInfo) {
     //通过维护这个msg来向ejs里面更新信息，这里更新的是错误信息（可以将其传走更新）
-    msg.error = '账户错误';
-    return ctx.body = msg;
+    message.message = '账户错误';
+    ctx.body = message;
+    return ctx;
   }
 
-  data.password = await md5.md5(data.password);
-  //比较密码的哈希md5
-  if (data.password !== userInfo.password) {
-    msg.error = '密码错误';
-    return ctx.body = msg;
+  data.password = await encipher.getMd5(data.password);
+  //比较密码的md5
+  if (data.password !== userInfo.dataValues.password) {
+    message.message = '密码错误';
+    ctx.body = message;
+    return ctx;
   }
 
+  //update session
   ctx.session.user = {
     user_id: userInfo.id,
     name: userInfo.name,
@@ -35,7 +44,8 @@ exports.login = async function (ctx) {
     email: userInfo.email,
   };
 
-  msg.result = true;
+  message.result = true;
   console.log("登录成功");
-  return ctx.body = msg;
+  ctx.body = message;
+  return ctx;
 };

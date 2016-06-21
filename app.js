@@ -46,7 +46,7 @@ app.use(session({
  //default "koa:sess"
   //key:'hezf_session',
   //secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
-  maxAge: 1000 *60 *60 *24,
+  maxAge: 1000 *60 *60 *24,//一天
 }));
 
 // 设置跨域
