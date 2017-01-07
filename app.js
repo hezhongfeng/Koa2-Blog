@@ -1,5 +1,4 @@
 'use strict';
-require('newrelic');
 import Koa from 'koa';
 const cors = require('koa-cors');
 const compress = require('koa-compress');

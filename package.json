@@ -45,9 +45,7 @@
     "superagent": "^2.2.0",
     "superagent-promise": "^1.1.0",
     "cheerio": "^0.20.0",
-    "node-schedule": "^1.1.1",
-    "pg":"^6.1.0",
-    "newrelic":"^1.31.0"
+    "node-schedule": "^1.1.1"
   },
   "license": "MIT"
 }
