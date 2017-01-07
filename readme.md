@@ -24,6 +24,8 @@
 
 ![表](https://github.com/hezhongfeng/Koa2-Blog/blob/master/images/DB.svg)
 
+下载![](https://img.shields.io/badge/download-1K-brightgreen.svg)
+
 ## 感谢
 1. 感谢[koa2-easy](https://github.com/Lxxyx/koa2-easy)这个框架，是在此基础上做的很多功能的添加
 2. 感谢[nswbmw](https://github.com/nswbmw)大神的几个项目，我都学习了很多
