@@ -22,7 +22,7 @@
 ## 数据库表结构
 目前就这几个表
 
-![图片](https://raw.githubusercontent.com/hezhongfeng/Koa2-Blog/master/images/DB.svg)
+![图片](http://github.com/hezhongfeng/Koa2-Blog/master/images/DB.svg)
 
 ## 感谢
 1. 感谢[koa2-easy](https://github.com/Lxxyx/koa2-easy)这个框架，是在此基础上做的很多功能的添加
