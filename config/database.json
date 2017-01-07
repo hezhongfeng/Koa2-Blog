@@ -1,0 +1,10 @@
+{
+  "dialect": "mysql",
+  "host": "",
+  "port": 3306,
+  "userName": "",
+  "password": "",
+  "databaseName": "",
+  "ssl": false,
+  "timezone": "+08:00"
+}
