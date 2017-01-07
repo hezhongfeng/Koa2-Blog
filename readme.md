@@ -22,7 +22,7 @@
 ## 数据库表结构
 目前就这几个表
 
-![表](https://github.com/hezhongfeng/Koa2-Blog/blob/master/images/DB.svg)
+啊![](https://github.com/hezhongfeng/Koa2-Blog/blob/master/images/DB.svg)
 
 下载![](https://img.shields.io/badge/download-1K-brightgreen.svg)
 
