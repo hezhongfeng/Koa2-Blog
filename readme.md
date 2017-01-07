@@ -22,6 +22,7 @@
 ## 数据库表结构
 目前就这几个表
 
+![图片](https://raw.githubusercontent.com/chenyufeng1991/NewsClient/master/Screenshots/2.png)
 ![图片](http://github.com/hezhongfeng/Koa2-Blog/master/images/DB.svg)
 
 ## 感谢
