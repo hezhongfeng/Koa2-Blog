@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <% if(typeof(title) !== 'undefined'){ %>
+    <title><%= title %></title>
+    <% } %>
+    <link rel="stylesheet" href="/semantic.min.css">
+    <script src="/jquery-3.1.0.min.js"></script>
+    <script src="/semantic.min.js"></script>
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+
+        body > .grid {
+            height: 100%;
+        }
+
+        .image {
+            margin-top: -100px;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+                    $('.ui.form').form({
+                        fields: {
+                            account: {
+                                identifier: 'account',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: '请填入账号'
+                                    }
+                                ]
+                            },
+                            password: {
+                                identifier: 'password',
+                                rules: [
+                                    {
+                                        type: 'length[6]',
+                                        prompt: '密码过短'
+                                    }
+                                ]
+                            }
+                        },
+                        on: 'blur',
+                        onSuccess: submitLogin
+                    });
+                    function submitLogin() {
+                        console.log('登录提交');
+                        $.ajax({
+                            url: "/admin/login",
+                            data: $('.ui.form').serialize(),
+                            type: "POST",
+                            cache: false,
+                            dataType: 'json',
+                            success: function (msg) {
+                                console.log(msg);
+                                if (msg.result) {
+                                    $('#updateMessage').hide();
+                                    window.location.href = '/admin';
+                                }
+                                else {
+                                    $('#updateMessage').show();
+                                    $('#updateMessage').text(msg.message);
+                                }
+                                //console.log($('.ui.error.message').text);
+                            },
+                            error: function () {
+                                alert('异常');
+                            }
+                        })
+                    };
+                    $('.ui.form').submit(function () {
+                        return false;
+                    });
+                }
+        );
+    </script>
+</head>
+<body>
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui teal image header">
+            <img src="images/logo.png" class="image">
+            <div class="content">
+                管理员登录
+            </div>
+        </h2>
+        <form class="ui large form">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="account" placeholder="管理员账号">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="ui fluid large teal submit button">Login</div>
+            </div>
+            <div class="ui error message"></div>
+        </form>
+
+        <div class="ui error message" id="updateMessage" style="display: none">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

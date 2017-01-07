@@ -1,50 +1,66 @@
 'use strict';
-const topic = require('../models/topic.js');
-const moment = require('moment');
-const user = require('../models/user.js');
-moment.locale('zh-cn');
+const Topic = require('../proxy/topic');
+const Moment = require('moment');
+const User = require('../proxy/user');
+const Message = require('../proxy/message');
+const updateDOTA2 = require('../common/updateDOTA2');
+
+Moment.locale('zh-cn');
 
 /**
- * POST /login - process login
+ * 主页显示
+ * @param ctx
  */
-exports.getHome = async function (ctx) {
-  //更新主页的主题列表以及过去的时间
-  var topics = await topic.findAndCountAll({
-    offset: 0,
-    limit: 15,
-  });
-  console.log("一共有" + topics.count + "篇主题");
-  console.log(topics.rows);
-  topics = topics.rows;
+exports.getHome = async(ctx) => {
+  let pageCount; //主题的页数
+  const onePageCount = 20; //一页的主题数量
+  let activePage = ctx.query.p || 1;//当前页
+  let noReadMessageCount = 0;//没读取消息的数量
+  let userTopics = [];
 
-  topics.forEach(function (topic) {
-    topic.fromNow = moment(topic.dataValues.createdAt).fromNow();
-  })
+  // try {
+  //更新主页的主题列表以及过去的时间
+  let topics_result = await Topic.getTopicsAndCount(activePage, ['last_reply_date_time', 'DESC']);
+  pageCount = Math.ceil(topics_result.count / onePageCount);
+  let topics = topics_result.rows;
+
+  for (let topic of topics) {
+    topic.user = await User.getUserById(topic.user_id);
+    topic.fromNow = Moment(topic.createdAt).fromNow();
+
+    //使用moment，算出create到现在的汉语时间段字符串
+    topic.lastReplyFromNow = Moment(topic.last_reply_date_time).fromNow();
+
+    topic.lastCommentUser = await User.getUserById(topic.last_reply_id);
+  }
 
   //更新用户的主题列表和签名
-  var userTopics = {};
-  if (ctx.session.user && ctx.session.user.user_id) {
-    userTopics = await topic.find({
-      where: {
-        user_id: ctx.session.user.user_id
-      },
-      offset: 0,
-      limit: 5,
-    });
+  if (typeof ctx.session.user !== 'undefined' && typeof ctx.session.user.id !== 'undefined') {
+    userTopics = await Topic.getTopicsByUserId(ctx.session.user.id, 0, 5, ['last_reply_date_time', 'DESC']);
     userTopics = userTopics.rows;
+    //更新用户基本信息，有很多时候用户不需要登录直接访问主页面
+    ctx.session.user = await User.getUserById(ctx.session.user.id);
 
-    let userInfo = await user.findById(ctx.session.user.user_id);
-    userInfo = userInfo.dataValues;
-    ctx.session.user.signature = userInfo.signature;
+    //查询未读取的消息数量，这里使用var比较合适
+    noReadMessageCount = await Message.getNoReadMessageCountById(ctx.session.user.id);
   }
+
+  //let matches = await DOTA2.getDOTA2();
+
+  let matches = updateDOTA2.matches();
+
+  //console.log(matches);
 
   var position = 'home';
   await ctx.render('home', {
     title: '主页',
-    flash: ctx.flash.get(),
     session: ctx.session,
     topics: topics,
     userTopics: userTopics,
-    position: position
+    position: position,
+    activePage: activePage,
+    pageCount: pageCount,
+    noReadMessageCount: noReadMessageCount,
+    matches: matches,
   });
 };

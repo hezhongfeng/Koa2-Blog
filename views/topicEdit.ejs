@@ -1,0 +1,62 @@
+<% include header %>
+<% if(typeof(topic) !== 'undefined' && typeof(topic.id) !== 'undefined' && typeof(topic.title) !== 'undefined' && typeof(topic.content) !== 'undefined') { %>
+<link rel="stylesheet" href="/mditor.min.css"/>
+<script src="/mditor.min.js"></script>
+
+<style>
+    .mditor {
+        margin-bottom: 10px;
+    }
+</style>
+
+<script>
+    var mditor = new Mditor("#editor", {
+        height: 400,
+        fixedHeight: true
+    });
+</script>
+
+<form class="ui form" method="post" action="/topic/edit">
+    <h2>编辑话题</h2>
+    <div class="field required">
+        <label>标题</label>
+        <input type="text" name="title" value="<%= topic.title %>">
+    </div>
+	<textarea name="content" id="editor">
+        <%= topic.content %>
+	</textarea>
+    <div class="ui button" id="submitBtn">
+        提交
+    </div>
+</form>
+
+<script>
+    var mditor = new Mditor("#editor", {
+        height: 400,
+        fixedHeight: true
+    });
+    $('#submitBtn').on('click',function () {
+        var formElement = $('.ui.form');
+        var formData = new FormData(formElement[0]);
+        formData.append('topicId','<%= topic.id %>');
+        $.ajax({
+            url: '/topic/edit',
+            type: "POST",
+            dataType: 'json',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (message) {
+                if(message.result === true){
+                    window.location.href='/topic/<%= topic.id %>';
+                }
+            },
+            error: function () {
+                console.log('Upload error');
+            }
+        });
+        $('#submitBtn').addClass('loading');
+    });
+</script>
+<% } %>
+<% include footer %>

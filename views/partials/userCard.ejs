@@ -1,14 +1,34 @@
+<% if ((typeof(session) !== 'undefined') && (typeof(session.user) !== 'undefined')) { %>
 <div class="ui card">
-    <% if (session && session.user && session.user.name) { %>
     <div class="content">
-        <div class="right floated meta">积分：40</div>
+        <% if(typeof session.user.integration !== 'undefined') { %>
+        <div class="right floated meta">积分<%= session.user.integration %></div>
+        <% } %>
+
+        <% if((typeof(session.user.name) !== 'undefined') && (typeof(session.user.avatarUrl) !== 'undefined')) { %>
         <a href="/user/<%= session.user.name %>">
-            <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> <%= session.user.name %>
+            <img class="ui avatar image" src="<%= session.user.avatarUrl %>"
+                 id="userCardAvatar"> <%= session.user.name %>
         </a>
+        <% } %>
     </div>
-    <div class="extra content">
-        <%= session.user.signature %>
+
+    <% if(typeof(session.user.signature) !== 'undefined') { %>
+    <div class="row">
+        <div class="text signature" style="font-style: italic;">"
+            <%= session.user.signature %>"
+        </div>
     </div>
-    <button class="ui basic button"><i class="icon settings"></i> 设置 </button>
     <% } %>
+
+    <div class="ui basic vertical buttons">
+        <% if(typeof(session.user.personalWeb) !== 'undefined') { %>
+        <a class="ui button" href="<%= session.user.personalWeb %>">个人网站</a>
+        <% } %>
+        <% if(typeof(session.user.GitHub) !== 'undefined') { %>
+        <a class="ui  button" href="<%= session.user.GitHub %>">GitHUb主页</a>
+        <% } %>
+        <a class="ui  button" href="/userSetting/<%= session.user.name %>"><i class="icon settings"></i> 设置</a>
+    </div>
 </div>
+<% } %>

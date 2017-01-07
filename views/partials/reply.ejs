@@ -1,0 +1,128 @@
+<div class="ui segment">
+    <div class="ui header">
+        <%= replies.length %>回复
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui comments">
+        <% for( var reply of replies) { %>
+        <div class="comment">
+            <a class="avatar" href="/user/<%= reply.author.name %>">
+                <img src='<%= reply.author.avatarUrl %>'>
+            </a>
+            <div class="content" id="<%- reply.id %>">
+                <a class="author" href="/user/<%= reply.author.name %>"><%= reply.author.name %></a>
+                <div class="metadata">
+                    <div class="date"><%- reply.fromNow %></div>
+                </div>
+                <div class="markdown-body">
+                    <%- reply.content %>
+                </div>
+                <div class="actions">
+                    <a id="support<%- reply.id %>">
+                        <i class="thumbs up icon button" title="点赞"></i>
+                        <span id="supportNum<%- reply.id %>"><%- reply.support %></span>
+                    </a>
+
+                    <a id="reply<%- reply.id %>">
+                        <i class="reply icon" title="回复"></i>
+                    </a>
+                    <script>
+                        $('#reply<%- reply.id %>').on('click', function () {
+                            console.log('click<%- reply.id %>');
+                            $('#testContent<%- reply.id %>').accordion('toggle', 0);
+                        });
+                    </script>
+                </div>
+
+                <% if ((typeof(session) !== 'undefined') && (typeof(session.user) !== 'undefined') && (typeof(session.user.name) !== 'undefined')){ %>
+                <div class="ui accordion" id="testContent<%- reply.id %>">
+                    <div class="title" style="display: none">
+                        不显示
+                    </div>
+                    <div class="content">
+                        <textarea name="content" id="editor<%- reply.id %>" placeholder="请输入回复内容"></textarea>
+                        <button class="ui basic button" id="submitBtn<%- reply.id %>">回复</button>
+                    </div>
+                </div>
+                <% } %>
+
+                <script>
+                    $('#editor<%- reply.id %>').append('@<%= reply.author.name %>');
+                    $('#editor<%- reply.id %>').append(' \n');
+                    $('#editor<%- reply.id %>').append(' ');
+                    new Mditor("#editor<%- reply.id %>", {
+                        height: 200,
+                        fixedHeight: true
+                    });
+
+                    $('#editor<%- reply.id %>').atwho({
+                        at: "@",
+                        data: names
+                    })
+                    $('#submitBtn<%- reply.id %>').on('click', function () {
+                        if ($('#editor<%- reply.id %>').val().length === 0) {
+                            alert("回复不能为空！");
+                            return;
+                        }
+                        var formData = new FormData();
+                        formData.append('content', $('#editor<%- reply.id %>').val());
+                        formData.append('title_id', '<%= topic.id %>');
+                        $.ajax({
+                            url: '/topic/createReply',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function (msg) {
+                                console.log(msg);
+                                if (msg.result) {
+                                    window.location.href = msg.href;
+                                    window.location.reload();
+                                }
+                                else {
+
+                                }
+                            },
+                            error: function () {
+                                alert('回复异常');
+                            }
+                        })
+                    });
+
+                    $('#support<%- reply.id %>').on('click', function () {
+                        console.log('support click<%- reply.id %>');
+                        var formData = new FormData();
+                        formData.append('reply_id', '<%- reply.id %>');
+                        formData.append('reply_author_id', '<%- reply.author.id %>');
+                        $.ajax({
+                            url: '/topic/addReplySupport',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function (msg) {
+                                console.log(msg);
+                                if (msg.result) {
+                                    $('#supportNum<%- reply.id %>').text(msg.support);
+                                    $('#support<%- reply.id %>').css('color', '#55AAFF');
+                                }
+                            },
+                            error: function () {
+                                alert('回复异常');
+                            }
+                        })
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <% }; %>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.ui.accordion').accordion();
+    });
+</script>

@@ -1,11 +1,17 @@
+<% if(typeof topicUser !== 'undefined' && typeof topicUser.name !== 'undefined' && typeof topicUser.signature !== 'undefined') { %>
 <div class="ui card">
     <div class="content">
+        <div class="header">作者</div>
+        <div class="ui divider"></div>
         <div class="right floated meta">积分：40</div>
         <a href="/user/<%= topicUser.name %>">
-            <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> <%= topicUser.name %>
+            <% if(typeof topicUser.avatarUrl !== 'undefined'){ %>
+            <img class="ui avatar image" src="<%= topicUser.avatarUrl %>"> <%= topicUser.name %>
+            <% } %>
         </a>
     </div>
-    <div class="extra content">
+    <div class="extra signature content">
         <%= topicUser.signature %>
     </div>
 </div>
+<% } %>

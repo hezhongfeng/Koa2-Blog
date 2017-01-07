@@ -1,11 +1,18 @@
+<% if(typeof activePage !== 'undefined' && typeof pageCount !== 'undefined' && pageCount !== 1) { %>
+<% activePage = parseInt(activePage); %>
+<% var items = [activePage - 2, activePage - 1, activePage, activePage + 1, activePage + 2]; %>
 <div class="ui pagination menu">
-    <a class="item">
-        1
+    <a class="icon item <%= (activePage > 1) ? '' : 'disabled' %>" href="?tab=all&p=<%= (activePage - 1) %>">
+        <i class="left arrow icon"></i>
     </a>
-    <a class="item">
-        1
-    </a>
-    <a class="item">
-        3
+    <% for(var item of items ){ %>
+    <% if ((item > 0) && (item <= pageCount) && (pageCount > 1)) { %>
+    <a class="<%= (activePage === item) ? 'active' : '' %> item" href="?tab=all&p=<%= item %>"><%= item %></a>
+    <% } %>
+    <% }; %>
+
+    <a class="icon item <%= (activePage < pageCount) ? '' : 'disabled' %>" href="?tab=all&p=<%= (activePage + 1) %>">
+        <i class="right arrow icon"></i>
     </a>
 </div>
+<% } %>

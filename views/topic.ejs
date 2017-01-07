@@ -1,19 +1,54 @@
 <% include header %>
-
+<% if(typeof(topic) !== 'undefined' && typeof(topic.title) !== 'undefined' && typeof(topic.fromNow) !== 'undefined') { %>
 <div class="ui segment">
     <div class="item">
         <h1 class="ui header"><%= topic.title %></h1>
-        <div class="item">•
-            发布于 <%= topic.fromNow %>•
-            作者 <%= topic.user_id %>•
+        <div class="item">
+            •发布于<%= topic.fromNow %>•
+            <% if(typeof(topicUser) !== 'undefined' && typeof(topicUser.name) !== 'undefined') { %>
+            作者 <%= topicUser.name %>•
+            <%= topic.pv %>次浏览
+            <% } %>
         </div>
+        <% if(typeof isAuthor !== 'undefined' && isAuthor === true){ %>
+        <div class="item">
+            <div class='ui buttons'>
+                <a class='ui basic icon button' id="editTopic" href="/topic/<%= topic.id %>/edit">
+                    <i class="edit icon"></i>编辑
+                </a>
+                <div class='ui basic button'>
+                    <i class="trash icon"></i>删除
+                </div>
+            </div>
+        </div>
+        <% } %>
         <div class="ui divider"></div>
-        <link rel="stylesheet" href="/mditor.min.css"/>
+
+        <% if(typeof(topic.content) !== 'undefined') { %>
         <div class="markdown-body">
             <%- topic.content %>
         </div>
-
+        <% } %>
     </div>
 </div>
 
+<link rel="stylesheet" href="/mditor.min.css"/>
+<link rel="stylesheet" href="/jquery.atwho.min.css"/>
+<script src="/mditor.min.js"></script>
+<script src="/jquery.caret.min.js"></script>
+<script src="/jquery.atwho.min.js"></script>
+<script>
+    let names = [];
+    <% for(let name of replyUserNames){ %>
+    names.push('<%= name %>');
+    <% } %>
+</script>
+
+<% if(typeof replies !== 'undefined' && replies.length !== 0) { %>
+<% include partials/reply.ejs %>
+<% } %>
+<% if ((typeof(session) !== 'undefined') && (typeof(session.user) !== 'undefined') && (typeof(session.user.name) !== 'undefined')){ %>
+<% include partials/createReply.ejs %>
+<% } %>
+<% } %>
 <% include footer %>

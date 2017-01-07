@@ -1,25 +1,102 @@
 <% include header %>
 
 <div class="ui segment">
-    <% include partials/list %>
-    <p>
-        一段文字
-    </p>
-    <div class="ui image">
-        <img src="/images/image-text.png">
+    <h3 class="ui blue ribbon label">基本信息</h3>
+    <% if(typeof userInfo !== 'undefined'){ %>
+    <div class="ui items">
     </div>
-    <p>
-        一段文字
-    </p>
-    <div class="ui image">
-        <img src="/images/image-text.png">
+    <div class="ui two column grid">
+        <div class="ui eight wide column">
+            <form class="ui form">
+                <div class="field">
+                    <label>用户名</label>
+                    <% if(typeof(userInfo.name) !== 'undefined') { %>
+                    <input type="text" readonly="" value="<%= userInfo.name %>">
+                    <% } %>
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    <% if(typeof(userInfo.email) !== 'undefined') { %>
+                    <input type="text" readonly="" value="<%= userInfo.email %>">
+                    <% } %>
+                </div>
+                <div class="field">
+                    <label>个性签名</label>
+                    <% if(typeof(userInfo.signature) !== 'undefined') { %>
+                    <textarea readonly="" rows="2"><%= userInfo.signature %></textarea>
+                    <% } %>
+                </div>
+                <div class="field">
+                    <label>个人网站</label>
+                    <% if(typeof(userInfo.personalWeb) !== 'undefined') { %>
+                    <input type="text" readonly="" value="<%= userInfo.personalWeb %>">
+                    <% } %>
+                </div>
+                <div class="field">
+                    <label>GitHub</label>
+                    <% if(typeof(userInfo.GitHub) !== 'undefined') { %>
+                    <input type="text" readonly="" value="<%= userInfo.GitHub %>">
+                    <% } %>
+                </div>
+                <div class="field">
+                    <label>积分</label>
+                    <% if(typeof(userInfo.integration) !== 'undefined') { %>
+                    <input type="text" readonly="" value="<%= userInfo.integration %>">
+                    <% } %>
+                </div>
+            </form>
+
+        </div>
+        <div class="four wide column">
+            <div class="ui grid">
+                <% if(typeof(userInfo.avatarUrl) !== 'undefined') { %>
+                <div class="centered row">
+                    <img class="ui image" src="<%= userInfo.avatarUrl %>">
+                </div>
+                <% } %>
+            </div>
+        </div>
     </div>
-    <p>
-        一段文字
-    </p>
-    <div class="ui image">
-        <img src="/images/image-text.png">
+    <% } %>
+</div>
+
+<div class="ui segment">
+    <h3 class="ui right pointing basic green ribbon large label">最近创建的话题</h3>
+    <% if(typeof userTopics !== 'undefined'){ %>
+    <div class="ui items">
+        <% for(let topic of userTopics) { %>
+        <div class="ui item">
+            <a href='/topic/<%= topic.id %>' style="font-weight: bold;"> <%= topic.title %></a>
+        </div>
+        <% }; %>
     </div>
+    <% } %>
+    <% if(userTopics.length === 5) {%>
+    <div class="ui divider"></div>
+    <a class="ui basic right labeled icon" href="/user/<%= userInfo.name %>/topics">
+        <i class="angle double right icon"></i>
+        查看更多
+    </a>
+    <% } %>
+
+</div>
+
+<div class="ui segment">
+    <h3 class="ui right pointing basic red ribbon large label">最近参与的话题</h3>
+    <div class="ui items">
+        <% for(let topic of userReplyTopics) { %>
+        <div class="ui item">
+            <a href='/topic/<%= topic.id %>' style="font-weight: bold;"> <%= topic.title %></a>
+        </div>
+        <% }; %>
+    </div>
+    <% if(userReplyTopics.length === 5) {%>
+    <div class="ui divider"></div>
+    <a class="ui basic right labeled icon" href="/user/<%= userInfo.name %>/replies">
+        <i class="angle double right icon"></i>
+        查看更多
+    </a>
+    <% } %>
 </div>
 
 <% include footer %>

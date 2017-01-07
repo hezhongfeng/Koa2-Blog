@@ -1,12 +1,12 @@
 'use strict';
 const sequelize = require("./sequelize.js")
-import Sequelize from 'Sequelize'
+const Sequelize = require('sequelize')
 
-var User = sequelize.define('user', {
-    userName: {
+const User = sequelize.define('user', {
+    name: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true//唯一的
+      unique: true
     },
     password: {
       type: Sequelize.STRING,
@@ -22,11 +22,24 @@ var User = sequelize.define('user', {
     },
     signature: {
       type: Sequelize.STRING
+    },
+    personalWeb: {
+      type: Sequelize.STRING
+    },
+    GitHub: {
+      type: Sequelize.STRING
+    },
+    avatarUrl: {
+      type: Sequelize.STRING,
+      defaultValue: 'http://res.cloudinary.com/hezf/image/upload/v1467186691/vwuj8a3tpuqoy5fzuzlw.png'
+    },
+    integration: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      comment: "用户积分"
     }
   },
-  // { // Model tableName will be the same as the model name
-  //   freezeTableName: true
-  // }
 );
 
 User.sync(); //创建表

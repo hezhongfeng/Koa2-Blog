@@ -3,15 +3,15 @@
         <div class="header">你的话题</div>
         <div class="ui divider"></div>
         <div class="ui link list" id="user_card_list">
-            <% if (typeof(userTopics) !== "undefined"){ %>
-            <% userTopics.forEach(function (topic) { %>
+            <% if (typeof userTopics !== 'undefined' && userTopics.length !== 0){ %>
+            <% for (var topic of userTopics){ %>
             <a class='item' href="/topic/<%= topic.id %>"><%= topic.title %></a>
-            <% })} else { %>
+            <% }} else { %>
             <p>您还没有任何话题</p>
             <% } %>
         </div>
     </div>
-    <a class="ui vertical animated basic button" href="/create">
+    <a class="ui vertical animated basic green button" href="/topic/create">
         <div class="hidden content">发表话题</div>
         <div class="visible content">
             <i class="plus icon"></i>

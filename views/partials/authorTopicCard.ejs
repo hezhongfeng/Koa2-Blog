@@ -1,0 +1,14 @@
+<div class="ui card">
+    <div class="content">
+        <div class="header">作者最近的话题</div>
+        <div class="ui divider"></div>
+        <div class="ui link list" id="user_card_list">
+            <% if (typeof(authorTopics) !== 'undefined' && authorTopics.length !== 0){ %>
+            <% for (var topic of authorTopics){ %>
+            <a class='item' href="/topic/<%= topic.id %>"><%= topic.title %></a>
+            <% }} else { %>
+            <p>还没有任何话题</p>
+            <% } %>
+        </div>
+    </div>
+</div>

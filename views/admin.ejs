@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        <% if(typeof title !== 'undefined'){ %>
+        <%= title %>
+        <% } %>
+    </title>
+    <link rel="stylesheet" href="/semantic.min.css">
+    <script src="/jquery-3.1.0.min.js"></script>
+    <script src="/semantic.min.js"></script>
+    <style type="text/css">
+        .main.container {
+            margin-top: 7em;
+        }
+    </style>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+        }
+
+        .ui.menu .item img.logo {
+            margin-right: 1.5em;
+        }
+    </style>
+</head>
+<body>
+<div class="ui fixed inverted main menu navbar" id="main_menu">
+    <div class="ui container">
+        <a href="/" class="header item">
+            <img class="logo" src="/images/logo.png">
+            MyBlog
+        </a>
+        <div class="right menu">
+            <a href="/" class="item">首页</a>
+            <% if ((typeof(session) !== 'undefined') && (typeof(session.admin) !== 'undefined')) { %>
+            <a href="/admin/logout" class="item">管理员登出</a>
+            <% } else { %>
+            <a href="/admin/login" class="item">管理员登录</a>
+            <% } %>
+        </div>
+    </div>
+</div>
+<div class="ui main container" style="margin-top: 70px;">
+    <div class="ui segment">
+        管理员
+    </div>
+</div>
+</body>
+</html>

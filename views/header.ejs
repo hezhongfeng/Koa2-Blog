@@ -3,28 +3,13 @@
 <head>
     <meta charset="utf-8">
     <title>
-        <% if((typeof(title) !== 'undefined')){ %>
+        <% if(typeof title !== 'undefined') { %>
         <%= title %>
         <% } %>
     </title>
     <link rel="stylesheet" href="/semantic.min.css">
-    <script src="/jquery.min.js"></script>
+    <script src="/jquery-3.1.0.min.js"></script>
     <script src="/semantic.min.js"></script>
-    <script>
-        $(document)
-                .ready(function () {
-                    $('.ui.menu .ui.dropdown').dropdown({
-                        on: 'hover'
-                    });
-                    $('.ui.menu a.item').on('click', function () {
-                        $(this)
-                                .addClass('active')
-                                .siblings()
-                                .removeClass('active');
-                    });
-                })
-        ;
-    </script>
     <style type="text/css">
         .main.container {
             margin-top: 7em;
@@ -39,21 +24,35 @@
             margin-right: 1.5em;
         }
     </style>
+    <style type="text/css">
+        .mditor {
+            margin: 10px auto;
+        }
+
+        .markdown-body {
+            margin: 10px auto;
+        }
+    </style>
 </head>
 <body>
 <div class="ui fixed inverted main menu" id="main_menu">
     <div class="ui container">
         <a href="/" class="header item">
-            <img class="logo" src="/images/logo.png">
+            <img class="logo" src="/images/DOTA2.ico">
             MyBlog
         </a>
         <div class="right menu">
             <a href="/" class="item">首页</a>
-            <% if (session && session.user) { %>
-            <a href="/messages" class="item">未读消息</a>
+            <% if ((typeof(session) !== 'undefined') && (typeof(session.user) !== 'undefined')) { %>
+            <a href="/message" class="item">
+                未读消息
+                <% if(typeof noReadMessageCount !== 'undefined' && noReadMessageCount !== 0) { %>
+                <div class="ui red circular label"><%= noReadMessageCount %></div>
+                <% } %>
+            </a>
             <% } %>
             <a href="/about" class="item">关于</a>
-            <% if (session && session.user) { %>
+            <% if ((typeof(session) !== 'undefined') && (typeof(session.user) !== 'undefined')) { %>
             <a href="/logout" class="item">登出</a>
             <% } else { %>
             <a href="/signup" class="item">注册</a>
@@ -63,5 +62,5 @@
     </div>
 </div>
 <div class="ui main container" style="margin-top: 70px;">
-    <div class="ui two column centered grid">
-        <div class="left floated twelve wide column" id="main_container_grid">
+    <div class="ui two column grid">
+        <div class="left floated twelve wide column">

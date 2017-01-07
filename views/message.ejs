@@ -1,0 +1,47 @@
+<% include header %>
+
+<div class="ui raised segment">
+    <h3 class="ui header">最新消息</h3>
+    <div class="ui divider"></div>
+    <% if ((typeof noReadMessages !== 'undefined') && (noReadMessages.length !== 0)) { %>
+    <div class="ui list">
+        <% for(let i = 0;i < noReadMessages.length;i++) { %>
+        <div class="ui item"></div>
+        <% if(noReadMessages[i].type === 'at'){ %>
+        <a href="/user/<%= noReadMessages[i].author_name %>"><%= noReadMessages[i].author_name %></a>
+        在话题
+        <a href="/topic/<%= noReadMessages[i].topic_id %>#<%= noReadMessages[i].reply_id %>"><%= noReadMessages[i].topic_title %></a>
+        中@了你
+        <% } else if(noReadMessages[i].type === 'reply'){ %>
+        <a href="/user/<%= noReadMessages[i].author_name %>"><%= noReadMessages[i].author_name %></a>
+        恢复了你的话题
+        <a href="/topic/<%= noReadMessages[i].topic_id %>#<%= noReadMessages[i].reply_id %>"><%= noReadMessages[i].topic_title %></a>
+        <% } %>
+        <% } %>
+    </div>
+    <% } %>
+</div>
+
+<div class="ui raised segment">
+    <h3 class="ui header">过往消息</h3>
+    <div class="ui divider"></div>
+    <% if ((typeof hasReadMessages !== 'undefined') && (hasReadMessages.length !== 0)) { %>
+    <div class="ui list">
+        <% for(let i = 0;i < hasReadMessages.length;i++) { %>
+        <div class="ui item"></div>
+        <% if(hasReadMessages[i].type === 'at'){ %>
+        <a href="/user/<%= hasReadMessages[i].author_name %>"><%= hasReadMessages[i].author_name %></a>
+        在话题
+        <a href="/topic/<%= hasReadMessages[i].topic_id %>#<%= hasReadMessages[i].reply_id %>"><%= hasReadMessages[i].topic_title %></a>
+        中@了你
+        <% } else if(hasReadMessages[i].type === 'reply'){ %>
+        <a href="/user/<%= hasReadMessages[i].author_name %>"><%= hasReadMessages[i].author_name %></a>
+        恢复了你的话题
+        <a href="/topic/<%= hasReadMessages[i].topic_id %>#<%= hasReadMessages[i].reply_id %>"><%= hasReadMessages[i].topic_title %></a>
+        <% } %>
+        <% } %>
+    </div>
+    <% } %>
+</div>
+
+<% include footer %>

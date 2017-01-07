@@ -2,9 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <% if(typeof(title) !== 'undefined'){ %>
     <title><%= title %></title>
+    <% } %>
     <link rel="stylesheet" href="/semantic.min.css">
-    <script src="/jquery.min.js"></script>
+    <script src="/jquery-3.1.0.min.js"></script>
     <script src="/semantic.min.js"></script>
     <style type="text/css">
         body {
@@ -62,7 +64,7 @@
                     function submitLogin() {
                         console.log('登录提交');
                         $.ajax({
-                            url: "/api/login",
+                            url: "/login",
                             data: $('.ui.form').serialize(),
                             type: "POST",
                             cache: false,
@@ -70,10 +72,12 @@
                             success: function (msg) {
                                 console.log(msg);
                                 if(msg.result){
+                                    $('#updateMessage').hide();
                                     window.location.href='/';
                                 }
                                 else {
-                                    ;
+                                    $('#updateMessage').show();
+                                    $('#updateMessage').text(msg.message);
                                 }
                                 //console.log($('.ui.error.message').text);
                             },
@@ -116,6 +120,10 @@
             </div>
             <div class="ui error message"></div>
         </form>
+
+        <div class="ui error message" id="updateMessage" style="display: none">
+
+        </div>
 
         <div class="ui message">
             没注册? <a href='/signup'>点我注册</a>

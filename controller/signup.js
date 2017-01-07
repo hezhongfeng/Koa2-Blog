@@ -1,69 +1,51 @@
 'use strict';
-const encipher = require('../lib/encipher.js');
-const user = require('../models/user.js');
+const encipher = require('../common/encipher.js');
+const User = require('../proxy/user');
 
-exports.signup = async function (ctx) {
+exports.signUp = async(ctx) => {
   try {
-    var data = ctx.request.body;
+    var data = ctx.body;
     let message = {};
     message.result = false;
 
     // check is username exist
-    let isUsernameExist = await user.findOne({
-      where: {
-        userName: data.name
-      }
-    })
-
+    let isUsernameExist = await User.getUserByName(data.name);
     if (isUsernameExist) {
       message.message = '用户名已注册';
       ctx.body = message;
-      return ctx;
+      return;
     }
 
     // check is email exist
-    let isEmailExist = await user.findOne({
-      where: {
-        email: data.email
-      }
-    })
-
+    let isEmailExist = await User.getUserByEmail(data.email);
     if (isEmailExist) {
       message.message = '此邮箱已注册';
       ctx.body = message;
-      return ctx;
+      return;
     }
 
-    data.password = await encipher.getMd5(data.password);
+    data.password = encipher.getMd5(data.password);
     var userInfo = {
-      userName: data.name,
+      name: data.name,
       password: data.password,
       email: data.email,
       gender: data.gender,
       signature: data.signature
     };
 
-    let createResult = await user.create(userInfo);
-    console.log(createResult);
+    await User.createUser(userInfo);
     message.result = true;
 
-    userInfo = await user.findOne({
-      where: {
-        email: data.email
-      }
-    });
+    //从数据库里重新查找刚才新插入的用户信息
+    userInfo = await User.getUserByEmail(data.email);
 
     //update session
-    ctx.session.user = {
-      user_id: userInfo.dataValues.id,
-      name: userInfo.dataValues.name,
-      signature: userInfo.dataValues.signature,
-      email: userInfo.dataValues.email,
-    };
+    ctx.session.user = userInfo;
     ctx.body = message;
-    return ctx;
+    return;
   }
   catch (err) {
     console.log(err);
+    throw (err, 400);
   }
 };

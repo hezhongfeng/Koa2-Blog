@@ -1,39 +1,38 @@
-<div class="ui big middle aligned divided list">
-    <% var topicsLen = topics.length; %>
-    <% topics.forEach(function (topic, index) { %>
-    <style type="text/css">
-        div.item.hover:hover {
-            background-color: rgba(225, 225, 225, 0.35);
-        }
-        a.hover {
-            color: #333;
-        }
-        a.hover:hover {
-            color: #4078c0;
-        }
-    </style>
-    <div class="item hover">
-        <div class="ui right floated">
+<div class="ui divided selected items">
+    <% if(typeof topics !== "undefined" && topics.length !== 0) { %>
+    <% for( var topic of topics) { %>
+    <div class="item">
+        <% if( typeof topic.user !== 'undefined' && typeof topic.user.avatarUrl !== 'undefined'){ %>
+        <a href="/user/<%= topic.user.name %>" class="ui mini image">
+            <img src="<%= topic.user.avatarUrl %>">
+        </a>
+        <% } %>
+        <div class="top aligned content">
+            <a class="header" href="/topic/<%= topic.id %>"><%= topic.title %></a>
+            <div class="meta">
+                    <span class="cinema">
+                        <a class="header" href="/user/<%= topic.id %>"><%= topic.name %></a>
+                        发布于<%= topic.fromNow %>●
+                        回复<%= topic.reply_count %>●
+                        浏览<%= topic.pv %>
+                    </span>
+            </div>
+        </div>
+        <div class="middle right floated">
             <div class="ui horizontal list">
                 <div class="item">
-                    <a class="item" href="/user/<%= topic.user_id %>" class="ui image">
-                        <img class="ui avatar image" src="/images/avatar2/small/lena.png">
+                    <a class="item" href="/user/<%= topic.lastCommentUser.name %>" class="ui image">
+                        <% if( typeof topic.lastCommentUser !== 'undefined' && typeof topic.lastCommentUser.avatarUrl !== 'undefined' ){ %>
+                        <img class="ui avatar image" src="<%= topic.lastCommentUser.avatarUrl %>">
+                        <% } %>
                     </a>
                 </div>
-                <div class="item" style="width: 60px; margin: 0px;padding: 0px">
-                    <div class="content" style="font-size: smaller"><%= topic.fromNow %></div>
+                <div class=" item" style="width: 60px; margin: 0px;padding: 0px">
+                    <div class="content" style="font-size: smaller"><%= topic.lastReplyFromNow %></div>
                 </div>
             </div>
         </div>
-        <a href="/user/<%= topic.user_id %>" class="ui image" style="padding-left: 5px">
-            <img class="ui avatar image" src="/images/avatar2/small/lena.png">
-        </a>
-        <div class="content" style="margin: 0px;padding: 0px">
-            <a class="hover" href='/topic/<%= topic.id %>' style="font-weight: bold;"> <%= topic.title %></a>
-            <div class="content" style="font-size: small;color: #767676">回复<%= topic.post_count %>•浏览<%= topic.view_count %></div>
-        </div>
     </div>
-    <% if (topicsLen > index + 1) { %>
     <% } %>
-    <% }); %>
+    <% } %>
 </div>

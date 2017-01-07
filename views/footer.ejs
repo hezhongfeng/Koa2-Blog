@@ -1,23 +1,23 @@
 </div>
 <div class="right floated left aligned four wide column">
     <div class="ui cards">
-        <% if (typeof(position) !== "undefined") { %>
+        <% if (typeof(position) !== 'undefined') { %>
 
         <% if (position === "home") { %>
-        <% if (session && session.user) { %>
+        <% if ((typeof(session) !== 'undefined') && (typeof(session.user) !== 'undefined') && (typeof(session.user.name) !== 'undefined')){ %>
         <% include partials/userCard %>
         <% include partials/createTopicCard %>
         <% } %>
         <% } else if (position === "topic") { %>
         <% include partials/topicUserCard %>
-        <% include partials/createTopicCard %>
-        <% } else if (position === "create") { %>
-        <% include partials/userCard %>
-        <% include partials/markSyntax %>
+        <% include partials/authorTopicCard.ejs %>
+        <% } else if (position === "topicCreate") { %>
+        <% include partials/markdownSyntaxCard.ejs %>
         <% } %>
 
         <% } %>
         <% include partials/linkCard %>
+        <% include partials/DOTA2Card %>
     </div>
 </div>
 </div>

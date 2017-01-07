@@ -1,0 +1,46 @@
+<div class="ui segment">
+    <h2>添加回复</h2>
+    <textarea name="content" id="editor" placeholder="正文不能为空"></textarea>
+    <button class="ui basic button" id="submitBtn">回复</button>
+</div>
+
+<script>
+    new Mditor("#editor", {
+        height: 200,
+        fixedHeight: true
+    });
+    $('#editor').atwho({
+        at: "@",
+        data: names //在前面从ejs参数里提取的可以@的名字
+    })
+    $('#submitBtn').on('click', function () {
+        if ($('#editor').val().length === 0) {
+            alert("回复不能为空！");
+            return;
+        }
+        var formData = new FormData();
+        formData.append('content',$('#editor').val());
+        formData.append('topic_id', '<%= topic.id %>');
+        $.ajax({
+            url: '/topic/createReply',
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (msg) {
+                console.log(msg);
+                if (msg.result) {
+                    window.location.href = msg.href;
+                    window.location.reload();
+                }
+                else {
+
+                }
+            },
+            error: function () {
+                alert('回复异常');
+            }
+        })
+    });
+</script>
