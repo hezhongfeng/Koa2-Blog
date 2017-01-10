@@ -1,29 +1,28 @@
 <% if ((typeof(session) !== 'undefined') && (typeof(session.user) !== 'undefined')) { %>
 <div class="ui card">
-    <div class="content">
+    <div class="content" style="padding: 0.5em;">
         <% if((typeof(session.user.name) !== 'undefined') && (typeof(session.user.avatarUrl) !== 'undefined')) { %>
-        <a href="/user/<%= session.user.name %>">
-            <img class="ui avatar image" style="width: 5em;height: 5em;" src="<%= session.user.avatarUrl %>"
-                 id="userCardAvatar"> <%= session.user.name %>
-        </a>
+            <a href="/user/<%= session.user.name %>">
+                <img class="right floated tiny ui image" style="margin: 0;width: 50px;height: 50px;" src="<%= session.user.avatarUrl %>" id="userCardAvatar">
+                <div class="header" style="font-weight: 700;font-size: 1.28571429em;color: rgba(0,0,0,.87);">
+                    <%= session.user.name %>
+                </div>
+            </a>
         <% } %>
-    </div>
 
-    <% if(typeof session.user.integration !== 'undefined') { %>
-    <div class="row">
-        <div class="text" style="font-size: 1.2em;">
-           积分: <%= session.user.integration %>
-        </div>
-    </div>
-    <% } %>
+        <% if(typeof session.user.integration !== 'undefined') { %>
+            <div class="meta">
+            积分: <%= session.user.integration %>
+            </div>
+        <% } %>
 
-    <% if(typeof(session.user.signature) !== 'undefined') { %>
-    <div class="row">
-        <div class="text signature" style="font-style: italic;">
-        "<%= session.user.signature %>"
-        </div>
+        <% if(typeof(session.user.signature) !== 'undefined') { %>
+            <div class="description">
+            "<%= session.user.signature %>"
+            </div>
+        <% } %>
+
     </div>
-    <% } %>
 
     <div class="ui basic vertical buttons">
         <% if(typeof(session.user.personalWeb) !== 'undefined') { %>
