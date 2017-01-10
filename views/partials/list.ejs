@@ -3,7 +3,7 @@
     <% for( var topic of topics) { %>
     <div class="item">
         <% if( typeof topic.user !== 'undefined' && typeof topic.user.avatarUrl !== 'undefined'){ %>
-        <a href="/user/<%= topic.user.name %>" class="ui mini image">
+        <a href="/user/<%= topic.user.name %>" class="ui image" style="width: 50px;">
             <img src="<%= topic.user.avatarUrl %>">
         </a>
         <% } %>
@@ -23,7 +23,7 @@
                 <div class="item">
                     <a class="item" href="/user/<%= topic.lastCommentUser.name %>" class="ui image">
                         <% if( typeof topic.lastCommentUser !== 'undefined' && typeof topic.lastCommentUser.avatarUrl !== 'undefined' ){ %>
-                        <img class="ui avatar image" src="<%= topic.lastCommentUser.avatarUrl %>">
+                        <img class="ui avatar image" style="width: 3em;height: 3em;" src="<%= topic.lastCommentUser.avatarUrl %>">
                         <% } %>
                     </a>
                 </div>
