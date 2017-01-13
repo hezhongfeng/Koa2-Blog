@@ -13,14 +13,14 @@ Moment.locale('zh-cn');
  */
 exports.getHome = async(ctx) => {
   let pageCount; //主题的页数
-  const onePageCount = 20; //一页的主题数量
+  const onePageCount = 15; //一页的主题数量,其实配置不应该放这里
   let activePage = ctx.query.p || 1;//当前页
   let noReadMessageCount = 0;//没读取消息的数量
   let userTopics = [];
 
   // try {
   //更新主页的主题列表以及过去的时间
-  let topics_result = await Topic.getTopicsAndCount(activePage, ['last_reply_date_time', 'DESC']);
+  let topics_result = await Topic.getTopicsAndCount(activePage,onePageCount, ['last_reply_date_time', 'DESC']);
   pageCount = Math.ceil(topics_result.count / onePageCount);
   let topics = topics_result.rows;
 

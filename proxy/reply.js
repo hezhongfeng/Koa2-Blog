@@ -14,9 +14,11 @@ exports.getRepliesByTopicId = async(topic_id)=> {
 }
 
 exports.createReply = async(replyInfo)=> {
+
   if (!replyInfo) {
     return [];
   }
+
   return await Reply.create(replyInfo);
 }
 

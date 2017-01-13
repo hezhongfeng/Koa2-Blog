@@ -1,7 +1,6 @@
 const Topic = require('../models/topic');
 const Moment = require('moment');
 
-const ONE_PAGE_COUNT = 20;//一页最多显示20个主题
 /**
  *
  * @param ids
@@ -30,13 +29,13 @@ exports.getTopicById = async(id)=> {
   return topic;
 };
 
-exports.getTopicsAndCount = async(activePage, order)=> {
+exports.getTopicsAndCount = async(activePage, onePageCount, order)=> {
   if (!activePage || !order) {
     return [];
   }
   let topics = await Topic.findAndCountAll({
-    offset: (activePage - 1) * ONE_PAGE_COUNT,
-    limit: ONE_PAGE_COUNT,
+    offset: (activePage - 1) * onePageCount,
+    limit: onePageCount,
     order: [order],
   });
   return topics;

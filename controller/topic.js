@@ -165,15 +165,16 @@ exports.saveTopic = async(ctx) => {
  */
 exports.createReply = async(ctx) => {
   let bodyData = ctx.body;
-  console.log(bodyData);
   let message = {};
+
   //提取基本信息
   if (ctx.session.user.id) {
     let replyInfo = {
       user_id: ctx.session.user.id,
       topic_id: bodyData.topic_id,
-      content: bodyData.content,
+      content: bodyData.content
     };
+
     let result = await Reply.createReply(replyInfo);
 
     //发送通知
