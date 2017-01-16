@@ -9,6 +9,7 @@ const logger = require('koa-logger');
 const convert = require('koa-convert');
 const body = require('koa-better-body');
 import session from "koa-session2";
+// import Store from "./models/store";
 const onerror = require('koa-onerror');
 const favicon = require('koa-favicon');
 const path = require('path');
@@ -42,8 +43,9 @@ app.use(compress({
 app.use(convert(logger()))
 
 /**
+ * 默认关闭，需同上面的Store一起关掉注释
  * 使用自定义存储，这里面用的是Redis缓存，好处是
- * session 存放在内存中不方便进程间共享，因此可以使用 redis 等缓存来存储 session。
+ * session 存放在内存中不方便进程间共享，因此可以使用 redis 等缓存来存储 session。m
  * 假设你的机器是4核的，你使用了4个进程在跑同一个node web服务，当用户访问进程1时，他被设置了一些数据当做session存在内存中。
  * 而下一次访问时，他被负载均衡到了进程2，则此时进程2的内存中没有他的信息，认为他是个新用户。这就会导致用户在我们服务中的状态不一致。
  */
