@@ -34,6 +34,7 @@
 1. 感谢[koa2-easy](https://github.com/Lxxyx/koa2-easy)这个框架，是在此基础上做的很多功能的添加
 2. 感谢[nswbmw](https://github.com/nswbmw)大神的几个项目，我都学习了很多
 3. 感谢[cnode](https://cnodejs.org/)网站，在上面问了很多问题，有很多好心人照顾我这个小白
+4. 最后感谢各种包的作者，他们孜孜不倦的更新维护才能让我们拿来就用
 
 ## 截图
 ### 注册
