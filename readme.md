@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="http://hezfblog.herokuapp.com">
-    <img src="https://rawgit.com/hezhongfeng/Koa2-Blog/master/images/icon.svg">
+    <img src="https://rawgit.com/hezhongfeng/Koa2-Blog/master/images/icon.png">
   </a>
 </p>
 
