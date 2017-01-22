@@ -1,4 +1,13 @@
 # koa2-Blog
+
+<p align="center">
+  <a href="http://hezfblog.herokuapp.com">
+    <img src="https://rawgit.com/hezhongfeng/Koa2-Blog/master/images/icon.svg">
+  </a>
+</p>
+
+![issues](https://img.shields.io/github/issues/hezhongfeng/Koa2-Blog.svg)    ![stars](https://img.shields.io/github/stars/hezhongfeng/Koa2-Blog.svg)    ![forks](https://img.shields.io/github/forks/hezhongfeng/Koa2-Blog.svg)
+
 - [线上体验](http://hezfblog.herokuapp.com/)
 
 ## 简要说明
