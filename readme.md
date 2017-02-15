@@ -9,6 +9,7 @@
 ![issues](https://img.shields.io/github/issues/hezhongfeng/Koa2-Blog.svg)    ![stars](https://img.shields.io/github/stars/hezhongfeng/Koa2-Blog.svg)    ![forks](https://img.shields.io/github/forks/hezhongfeng/Koa2-Blog.svg)
 
 - [线上体验](http://hezfblog.herokuapp.com/)
+- 欢迎新建账号试用，有问题直接提issue,因为部署在heroku上面速度不会快
 
 ## 简要说明
 1. 在学习Qt中QML的时候接触了JavaScript,后来知道可以用node做网站就有了一个想法，学习制作一个网站。公司的业务也是这方面的,自己独立制作会给我很大的帮助
