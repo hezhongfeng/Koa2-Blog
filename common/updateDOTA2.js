@@ -40,7 +40,7 @@ exports.update = async()=> {
   });
 
   //5 mins
-  schedule.scheduleJob('30 */5 * * * *',function () {
-    getMyself();
-  });
+  // schedule.scheduleJob('30 */5 * * * *',function () {
+  //   getMyself();
+  // });
 }
