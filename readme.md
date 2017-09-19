@@ -6,7 +6,7 @@
   </a>
 </p>
 
-![issues](https://img.shields.io/github/issues/hezhongfeng/Koa2-Blog.svg)    ![stars](https://img.shields.io/github/stars/hezhongfeng/Koa2-Blog.svg)    ![forks](https://img.shields.io/github/forks/hezhongfeng/Koa2-Blog.svg)
+![issues](https://img.shields.io/github/issues/hezhongfeng/Koa2-Blog.svg)    ![stars](https://img.shields.io/github/stars/hezhongfeng/Koa2-Blog.svg)    ![forks](https://img.shields.io/github/forks/hezhongfeng/Koa2-Blog.svg)    ![juejin](https://badge.juejin.im/entry/587d8f4fb123db4d5e7e573d/likes.svg?style=flat-square)
 
 - [线上体验](http://hezfblog.herokuapp.com/)
 - 欢迎新建账号试用，有问题直接提issue,因为部署在heroku上面速度不会快
