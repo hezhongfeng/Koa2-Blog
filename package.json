@@ -1,5 +1,5 @@
 {
-  "name": "koa2-Blog",
+  "name": "koa2-blog",
   "version": "0.9.0",
   "description": "Use Koa2 to build a blog.",
   "engines": {
@@ -16,7 +16,6 @@
     "async/await"
   ],
   "author": "hezf",
-  "license": "MIT",
   "dependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0",
     "babel-preset-es2017": "^6.14.0",
