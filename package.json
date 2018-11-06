@@ -4,7 +4,7 @@
   "description": "Use Koa2 to build a blog.",
   "engines": {
     "node": "6.5.0",
-    "npm":"3.10.3"
+    "npm": "3.10.3"
   },
   "main": "run.js",
   "scripts": {
@@ -31,13 +31,15 @@
     "koa-static": "^2.0.0",
     "koa-views": "^5.0.2",
     "ejs": "^2.5.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-standard": "^4.0.0",
     "koa-session2": "^1.0.8",
     "ioredis": "^2.3.0",
     "koa-onerror": "^2.0.0",
     "moment": "^2.13.0",
     "mditor": "^0.1.4",
     "mysql": "2.11.1",
-    "sequelize":"^3.24.1",
+    "sequelize": "^3.24.1",
     "cloudinary": "^1.4.1",
     "koa-better-body": "^2.0.1",
     "koa-favicon": "^2.0.0",
