@@ -1,6 +1,6 @@
 'use strict';
 const schedule = require('node-schedule');
-const superagent = require('superagent-promise')(require('superagent'), Promise);
+const superagent = require('superagent');
 const cheerio = require('cheerio');
 const targetUrl = 'http://www.gosugamers.net/dota2';
 const myselfUrl = 'http://hezfblog.herokuapp.com';
@@ -29,7 +29,8 @@ const getDOTA2 = async () => {
       .eq(1)
       .text();
     match.live = $(this)
-      .find('.live-in')
+      .find('.status')
+      .eq(0)
       .text();
     matches.push(match);
   });

@@ -43,8 +43,7 @@
     "cloudinary": "^1.4.1",
     "koa-better-body": "^2.0.1",
     "koa-favicon": "^2.0.0",
-    "superagent": "^2.2.0",
-    "superagent-promise": "^1.1.0",
+    "superagent": "^4.0.0-beta.5",
     "cheerio": "^0.20.0",
     "node-schedule": "^1.1.1"
   },
