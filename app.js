@@ -74,7 +74,7 @@ app.use(views(__dirname + '/views', {//这里应该是包含了ejs和别的一�
 }))
 
 // 静态文件夹
-app.use(convert(serve(__dirname + '/public/')))
+app.use(convert(serve(path.join(__dirname + '/public/'))))
 
 //路由，最后处理到达路由，再由路由分发到相应的处理controller,这里是简单的MVC模型
 app.use(index.routes())
