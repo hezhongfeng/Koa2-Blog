@@ -101,7 +101,7 @@ exports.createTopic = async(ctx) => {
       user_id: ctx.session.user.id,
       last_reply_id: ctx.session.user.id,
       title: ctx.body.title,
-      content: ctx.body.content,
+      content: ctx.body.editor,
     };
 
     //在数据库新建主题

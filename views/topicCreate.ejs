@@ -1,83 +1,90 @@
 <% include header %>
 
-<link rel="stylesheet" href="/mditor.min.css"/>
+<link rel="stylesheet" href="/mditor.min.css" />
 <script src="/mditor.min.js"></script>
 <style>
-    .mditor {
-        margin-bottom: 10px;
-    }
+  .mditor {
+    margin: 45px auto;
+    max-width: 880px;
+  }
+
+  .ui.form textarea {
+    font-size: 16px;
+  }
+  .ui.form textarea:not([rows]) {
+    height: 100%;
+    /* min-height: 8em; */
+    max-height: 100%;
+  }
 </style>
 
 <form class="ui form">
-    <h2>发表话题</h2>
-    <div class="field required">
-        <label>标题</label>
-        <input placeholder="标题字数不少于5字" type="text" name="title">
-    </div>
-	<textarea name="content" id="editor" placeholder="正文不能为空">
-	</textarea>
-    <input type="submit" class="ui basic button" value="发布" id="submitBtn">
+  <h2>发表话题</h2>
+  <div class="field required">
+    <label>标题</label> <input placeholder="标题字数不少于5字" type="text" name="title" />
+  </div>
+  <textarea name="editor" id="editor" placeholder="正文不能为空"> </textarea>
+  <input type="submit" class="ui basic button" value="发布" id="submitBtn" />
 </form>
 
 <script>
-    $(document).ready(function () {
-        new Mditor("#editor", {
-            height: 400,
-            fixedHeight: true
-        });
-        $('.ui.form').form({
-            fields: {
-                title: {
-                    identifier: 'title',
-                    rules: [
-                        {
-                            type: 'length[5]',
-                            prompt: '标题长度最少5位'
-                        }
-                    ]
-                },
-                content: {
-                    identifier: 'content',
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: '请输入内容'
-                        }
-                    ]
-                }
-            },
-            on: 'blur',
-            inline: true,
-            onSuccess: submitCreate
-        });
-        function submitCreate() {
-            var formElement = $('.ui.form');
-            var formData = new FormData(formElement[0]);
-            $.ajax({
-                url: '/topic/create',
-                type: "POST",
-                dataType: 'json',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (msg) {
-                    console.log(msg);
-                    if (msg.result) {
-                        window.location.href = '/';
-                    }
-                    else {
-
-                    }
-                },
-                error: function () {
-                    alert('异常');
-                }
-            })
-        };
-        $('.ui.form').submit(function () {
-            return false;
-        });
+  $(document).ready(function() {
+    let mditor = Mditor.fromTextarea(document.getElementById('editor'));
+    mditor.on('ready', function() {
+      console.log(mditor.value);
+      mditor.value = '** hello **';
     });
+    $('.ui.form').form({
+      fields: {
+        title: {
+          identifier: 'title',
+          rules: [
+            {
+              type: 'length[5]',
+              prompt: '标题长度最少5位'
+            }
+          ]
+        },
+        content: {
+          identifier: 'content',
+          rules: [
+            {
+              type: 'empty',
+              prompt: '请输入内容'
+            }
+          ]
+        }
+      },
+      on: 'blur',
+      inline: true,
+      onSuccess: submitCreate
+    });
+    function submitCreate() {
+      var formElement = $('.ui.form');
+      var formData = new FormData(formElement[0]);
+      $.ajax({
+        url: '/topic/create',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(msg) {
+          console.log(msg);
+          if (msg.result) {
+            window.location.href = '/';
+          } else {
+          }
+        },
+        error: function() {
+          alert('异常');
+        }
+      });
+    }
+    $('.ui.form').submit(function() {
+      return false;
+    });
+  });
 </script>
 
 <% include footer %>
