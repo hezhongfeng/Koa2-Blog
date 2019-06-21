@@ -11,6 +11,11 @@
 - [线上体验](http://hezfblog.herokuapp.com/)
 - 欢迎新建账号试用，有问题直接提issue,因为部署在heroku上面速度不会快
 
+## todo
+- [ ] 重新搭建Koa2的开发环境
+- [ ] 升级package
+- [ ] 升级UI
+
 ## 简要说明
 1. 在学习Qt中QML的时候接触了JavaScript,后来知道可以用node做网站就有了一个想法，学习制作一个网站。公司的业务也是这方面的,自己独立制作会给我很大的帮助
 2. 选择做什么类型网站的时候，选择做一个简单的博客类网站，模仿对象是[cnode](https://cnodejs.org/)

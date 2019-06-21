@@ -3,7 +3,7 @@
   "version": "0.9.0",
   "description": "Use Koa2 to build a blog.",
   "engines": {
-    "node": "8.12.0",
+    "node": "10.15.3",
     "npm": "6.1.0"
   },
   "main": "run.js",
