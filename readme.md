@@ -1,4 +1,4 @@
-# koa2-Blog
+# koa2-Blog reborn
 
 <p align="center">
   <a href="http://hezfblog.herokuapp.com">
